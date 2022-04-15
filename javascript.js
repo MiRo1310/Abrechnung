@@ -1,44 +1,44 @@
-isInWebAppiOS = (window.navigator.standalone == true);
-isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
+// isInWebAppiOS = (window.navigator.standalone == true);
+// isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
 
-let pwaSupport = false;
+// let pwaSupport = false;
 
-if ("serviceWorker" in navigator) {
-	pwaSupport = true; // iOS 11 oder neuer
-	navigator.serviceWorker.register ("serviceworker.js").then (function (result) {
-		console.log ("Service Worker registriert");
-	}, function (error) {
-		console.log ("Service Worker Registrierung fehlgeschlagen " + error);
-	});
-} else {
-	console.log ("Service Worker nicht unterstützt");
-}
+// if ("serviceWorker" in navigator) {
+// 	pwaSupport = true; // iOS 11 oder neuer
+// 	navigator.serviceWorker.register ("serviceworker.js").then (function (result) {
+// 		console.log ("Service Worker registriert");
+// 	}, function (error) {
+// 		console.log ("Service Worker Registrierung fehlgeschlagen " + error);
+// 	});
+// } else {
+// 	console.log ("Service Worker nicht unterstützt");
+// }
 
-window.onload = function () {
-	if (pwaSupport) {
-		let platform = navigator.platform;
-		if (platform === 'iPhone' || platform === 'iPad') {
-			// Die App ist noch nicht installiert
-			if (!navigator.standalone) {
-				let lastShown = parseInt (localStorage.getItem ('lastShown'));
-				let now = new Date().getTime ();
-				// lastShown NaN – App wurde noch nie geladen und Anweisung seit 7 Tagen nicht gezeigt
-				if (isNaN (lastShown) || (lastShown + 1000 * 60 * 60 * 24 * 7) <= now) {
-					document.getElementById("instructions").style.display = "block";
-					localStorage.setItem ("lastShown", now);
-				}
-			}
-		}
-	}
-}
+// window.onload = function () {
+// 	if (pwaSupport) {
+// 		let platform = navigator.platform;
+// 		if (platform === 'iPhone' || platform === 'iPad') {
+// 			// Die App ist noch nicht installiert
+// 			if (!navigator.standalone) {
+// 				let lastShown = parseInt (localStorage.getItem ('lastShown'));
+// 				let now = new Date().getTime ();
+// 				// lastShown NaN – App wurde noch nie geladen und Anweisung seit 7 Tagen nicht gezeigt
+// 				if (isNaN (lastShown) || (lastShown + 1000 * 60 * 60 * 24 * 7) <= now) {
+// 					document.getElementById("instructions").style.display = "block";
+// 					localStorage.setItem ("lastShown", now);
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
-function hideInstructions () {
-	document.getElementById("instructions").style.display = "none";
-}
+// function hideInstructions () {
+// 	document.getElementById("instructions").style.display = "none";
+// }
 
 
 // ANCHOR Values
-let values = {
+let valuesOb = {
     holzspalter:{
         menge_holzspalter : 0,
         stundenlohn : 150,
@@ -82,6 +82,7 @@ let values = {
     
 
 let storgekey = "Abrechnung Roling"
+let values;
 
 // ANCHOR Reset Object
 // Local Storage zurück setzen
@@ -92,7 +93,7 @@ if (false){
 let objectsOfChange = document.getElementsByClassName("input")
 for (const element of objectsOfChange){
     element.addEventListener("change", function(){
-        console.log(values);
+        console.log(JSON.stringify(values));
         
         values.holzspalter.menge_holzspalter = parseFloat(document.getElementById("zeit").value)
         values.holzspalter.stundenlohn = parseFloat(document.getElementById("p_stunde").value)
@@ -117,9 +118,10 @@ for (const element of objectsOfChange){
 
 // ANCHOR Load
 addEventListener("load", function(){
-                
-    if (localStorage.getItem(storgekey) != '""'){
+    console.log(this.localStorage.getItem(storgekey))            
+    if (this.localStorage.getItem(storgekey) && localStorage.getItem(storgekey) != '""' ){
         console.log("Loading")
+        
         console.log(values)
         values = JSON.parse(localStorage.getItem(storgekey));
         
@@ -137,7 +139,13 @@ addEventListener("load", function(){
         } else if (document.URL.includes("zaehlen.html")){
             refreshDisplayZaehlen();
         }        
-    } 
+    } else {
+        console.log("First Value")
+        values = valuesOb
+        refreshDisplay();
+        refreshDisplayZaehlen();
+        save();
+    }
     
 })
 
@@ -295,8 +303,8 @@ for (const element of valuechange){
 
 function refreshDisplayZaehlen(){
     
-    soll.innerHTML = values.gesamtBetrag.toFixed(2)
-    values.zaehlen.soll = values.gesamtBetrag.toFixed(2)
+    soll.innerHTML = parseFloat(values.gesamtBetrag).toFixed(2)
+    values.zaehlen.soll = parseFloat(values.gesamtBetrag).toFixed(2)
     
     fuenf.value = values.zaehlen.val.fuenf
     zehn.value = values.zaehlen.val.zehn
