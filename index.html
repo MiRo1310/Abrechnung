@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><!-- kein heranzoomen-->
+    <title>Abrechnung</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel = ”apple-touch-icon” href = ”apple-icon-precomposed.png”>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-startup-image" href="apple-icon-60x60.png">
+
+    <!-- <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('serviceworker.js');
+        }
+    </script> -->
+
+    
+</head>
+
+
+<body>
+
+    <!-- Logo -->
+    <header><img src="img/branding.png" alt="Das Logo"></header>
+
+    <!-- Navigation -->
+    <nav>
+        
+        <div id="dropdown">
+            <div  id="mobile-nav-button" class="clearfix">&equiv;</div>
+            <div class="clearfix" id="mobile-nav-content">
+                <a href="index.html">Abrechnung</a>
+                <a href="zaehlen.html">Zählen</a>
+            </div>
+        </div>
+        
+    </nav>
+
+
+
+    <br>
+    <h1>Abrechnung</h1>
+    <table>
+        <tr>
+            <th>Artikel</th>
+            <th>Menge</th>
+            <th>Preis</th>
+            <th>Gesamt</th>
+        </tr>
+        <tr>
+            <td class="feld1 artikel">Holzspalter</td>
+            <td class="feld2"><input class="input" id="zeit" type="number" ><span class="einheiten_menge">Std</span></td>
+            <td class="feld3"><input class="input" type="number" id="p_stunde"><span> €</span></td>
+            <td class="feld4"><span id="g_stunde" type="number">0.00</span> <span> €</span></td>
+        </tr>
+        <tr>
+            <td class="feld1 artikel">Anfahrt</td>
+            <td class="feld2"><input class="input" type="number" id="kilometer" ><span class="einheiten_menge">km</span></td>
+            <td class="feld3"><input class="input" id="p_kilo"><span> €</span></td>
+            <td class="feld4"><span id="g_kilo" type="number">0.00</span><span> €</span></td>
+        </tr>
+        <tr>
+            <td class="feld1 artikel">Anfahrt</td>
+            <td class="feld2"><input class="input" type="number" id="pauschal" ><span class="einheiten_menge">pau.</span></td>
+            <td class="feld3"><input  class="input" type="number" id ="p_kilo_pauschal" ><span> €</span></td>
+            <td class="feld4"><span id="g_kilo_pauschal">0.00</span><span> €</span></td>
+        </tr>
+        
+        <tr>
+            <td class="feld1 artikel">Eurovignette</td>
+            <td class="feld2"><input class="input" type="number" id="euro" ><span class="einheiten_menge">Tage</span></td>
+            <td class="feld3"><input class="input" type ="number" id="p_euro"><span> €</span></td>
+            <td class="feld4"><span id="g_euro">0.00</span><span> €</span></td>
+        </tr>
+        <tr>
+            <td class="feld1 artikel">Sonstiges</td>
+            <td class="feld2"><input class="input" type="number" id="sonstiges" ><span class="einheiten_menge">Stck</span></td>
+            <td class="feld3"><input class="input" id="p_sonstiges" type="number"><span>  €</span></td>
+            <td class="feld4"><span id="g_sonstiges">0.00</span><span> €</span></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="feld5" id="textEu">Netto</td>
+            <td class="feld4"><span id ="g_netto">0.00</span><span> €</span></td>
+            
+        </tr>
+        <tr class="displayNone">
+            <td></td>
+            <td></td>
+            <td class="feld3" ><input class="input" type="number" id="mwstsatz"> %</td>
+            <td class="feld4"><span id="g_mwst">0.00</span><span> €</span></td>
+            
+        </tr>
+        <tr class="displayNone">
+            <td></td>
+            <td></td>
+            <td class="feld3 brutto" >Brutto</td>
+            <td class="feld4 brutto"><span id ="gesamt">0.00</span><span> €</span></td>
+            
+        </tr>
+    </table>
+    <div class="button-feld">
+        <input type="checkbox" id="eu-ausland" name="ausland" >EU-Ausland
+        <button type="reset" id="zuruecksetzen">Zurücksetzen</button>
+        <!-- <button type="submit">Stunden übernehmen</button> -->
+    </div>
+    
+
+    <script type="text/javascript" src="javascript.js"></script>
+</body>
+</html>

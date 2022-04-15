@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Abrechnung</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel = ”apple-touch-icon” href = ”apple-icon-180x180.png”>
+    <!-- <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/serviceworker.js');
+        }
+    </script> -->
+</head>
+
+
+<body>
+
+    <!-- Logo -->
+    <header><img src="img/branding.png" alt="Das Logo"></header>
+
+    <!-- Navigation -->
+    <nav>
+        
+        <div id="dropdown">
+            <div id="mobile-nav-button" class="clearfix">&equiv;</div>
+            <div class="clearfix" id="mobile-nav-content">
+                <a href="index.html">Abrechnung</a>
+                <a href="zaehlen.html">Zählen</a>
+            </div>
+        </div>
+        
+    </nav>
+
+
+
+    <br>
+    <h1>Geld Zählen</h1>
+    
+
+    <table id="tabelleZaehlen">
+            <tr>
+                <td>
+                    <input type="number" class="compute" id="fuenf"><span>x 5€</span></input>
+                </td>
+                <td>
+                    <input type="number" class="compute" id="zehn"><span>x 10€</span></input>
+                </td>                     
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" class="compute" id="zwanzig"><span>x 20€</span></input>
+                </td>
+                <td>
+                    <input type="number" class="compute" id="fuenfzig"><span>x 50€</span></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" class="compute" id="hundert"><span>x 100€</span></input>
+                </td>
+                
+                <td>
+                    <input type="number" class="compute" id="zweihundert"><span>x 200€</span></input>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="number" class="compute" id="fuenfhundert"><span>x 500€</span></input>
+                </td>
+            </tr></table>
+
+    <div id="ergebnis">
+        <p>Gezählt <span><span id="gezaehlt">0</span><span> €</span></span></p>
+        <p>Soll <span><span id="soll" >0</span><span> €</span></span></p>
+        <p>Differenz <span><span id="differenz">0</span><span> €</span></span></p>
+    </div>
+    
+
+
+    <script src="javascript.js"></script>
+</body>
+</html>
