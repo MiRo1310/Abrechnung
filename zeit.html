@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Abrechnung</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel = ”apple-touch-icon” href = ”apple-icon-180x180.png”>
+    <!-- <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/serviceworker.js');
+        }
+    </script> -->
+</head>
+
+
+<body>
+
+    <!-- Logo -->
+    <header><img src="img/branding.png" alt="Das Logo"></header>
+
+    <!-- Navigation -->
+    <nav>
+        
+        <div id="dropdown">
+            <div id="mobile-nav-button" class="clearfix">&equiv;</div>
+            <div class="clearfix" id="mobile-nav-content">
+                <a href="zeit.html" class="active">Arbeitszeit</a>
+                <a href="index.html">Abrechnung</a>
+                <a href="zaehlen.html">Zählen</a>
+            </div>
+        </div>
+        
+    </nav>
+
+
+
+    <br>
+    <h1>Arbeitszeit</h1>
+    
+
+    <table id="tabelleZeit">
+            <tr>
+                <td class="field"><span></span></td>
+                <td class="day field"><span>Tag 1</span></td>
+                <td class="day field"><span>Tag 2</span></td>
+                <td class="day field"><span>Tag 3</span></td>
+                <td class="day field"><span>Tag 4</span></td>
+                <td class="day field"><span>Tag 5</span></td>                     
+            </tr>
+            <tr>
+                <td class="field"><span>Beginn</span></td>
+                <td class="field"><input type="time" id="tB1"></td>
+                <td class="field"><input type="time" id="tB2"></td>
+                <td class="field"><input type="time" id="tB3"></td>
+                <td class="field"><input type="time" id="tB4"></td>
+                <td class="field"><input type="time" id="tB5"></td>
+            </tr>
+            <tr>
+                <td class="field"><span>Ende</span></td>
+                <td class="field"><input type="time" id="tE1"></td>
+                <td class="field"><input type="time" id="tE2"></td>
+                <td class="field"><input type="time" id="tE3"></td>
+                <td class="field"><input type="time" id="tE4"></td>
+                <td class="field"><input type="time" id="tE5"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="field"><span>Pause (min)</span></td>
+                <td class="field"><input type="number" class="t1P"></td>
+                <td class="field"><input type="number" class="t2P"></td>
+                <td class="field"><input type="number" class="t3P"></td>
+                <td class="field"><input type="number" class="t4P"></td>
+                <td class="field"><input type="number" class="t5P"></td>
+            </tr>
+            <tr>
+                <td class="field"><span>Pause (min)</span></td>
+                <td class="field"><input type="number" class="t1P"></td>
+                <td class="field"><input type="number" class="t2P"></td>
+                <td class="field"><input type="number" class="t3P"></td>
+                <td class="field"><input type="number" class="t4P"></td>
+                <td class="field"><input type="number" class="t5P"></td>
+            </tr>
+            <tr>
+                <td class="field"><span>Pause (min)</span></td>
+                <td class="field"><input type="number" class="t1P"></td>
+                <td class="field"><input type="number" class="t2P"></td>
+                <td class="field"><input type="number" class="t3P"></td>
+                <td class="field"><input type="number" class="t4P"></td>
+                <td class="field"><input type="number" class="t5P"></td>
+            </tr>
+            <!-- <tr>
+                <td class="field"><span>Pause (min)</span></td>
+                <td class="field"><input type="number" class="t1P"></td>
+                <td class="field"><input type="number" class="t2P"></td>
+                <td class="field"><input type="number" class="t3P"></td>
+                <td class="field"><input type="number" class="t4P"></td>
+                <td class="field"><input type="number" class="t5P"></td>
+            </tr> -->
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="field"><span>Gesamt</span></td>
+                <td class="field"><input type="number" id="t1G"></td>
+                <td class="field"><input type="number" id="t2G"></td>
+                <td class="field"><input type="number" id="t3G"></td>
+                <td class="field"><input type="number" id="t4G"></td>
+                <td class="field"><input type="number" id="t5G"></td>
+            </tr>
+
+        </table>
+
+    <div id="ergebnis">
+        <p>Gesamtstunden <span><span id="gesamtStd">0</span><span> Std</span></span></p>
+    </div>
+
+    <div class="button-feld2">        
+        <button type="reset" id="zuruecksetzen3">Zurücksetzen</button>       
+    </div>
+
+
+    <script src="javascript.js"></script>
+</body>
+</html>

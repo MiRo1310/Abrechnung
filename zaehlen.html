@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Abrechnung</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="manifest" href="manifest.json">
+    <!-- <link rel="manifest" href="manifest.json"> -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel = ”apple-touch-icon” href = ”apple-icon-180x180.png”>
     <!-- <script>
@@ -28,6 +28,7 @@
         <div id="dropdown">
             <div id="mobile-nav-button" class="clearfix">&equiv;</div>
             <div class="clearfix" id="mobile-nav-content">
+                <a href="zeit.html" class="active">Arbeitszeit</a>
                 <a href="index.html">Abrechnung</a>
                 <a href="zaehlen.html">Zählen</a>
             </div>
@@ -76,9 +77,12 @@
     <div id="ergebnis">
         <p>Gezählt <span><span id="gezaehlt">0</span><span> €</span></span></p>
         <p>Soll <span><span id="soll" >0</span><span> €</span></span></p>
-        <p>Differenz <span><span id="differenz">0</span><span> €</span></span></p>
+        <p id="dif">Differenz <span><span id="differenz">0</span><span> €</span></span></p>
     </div>
-    
+
+    <div class="button-feld2">        
+        <button type="reset" id="zuruecksetzen2">Zurücksetzen</button>       
+    </div>
 
 
     <script src="javascript.js"></script>
