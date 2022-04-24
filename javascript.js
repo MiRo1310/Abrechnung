@@ -551,4 +551,22 @@ const mathTime = function (){
 
 // ANCHOR Button zurücksetzen Zeit
 
+const zeitZurueck = document.getElementById("zuruecksetzenZeit")
+zeitZurueck.addEventListener("click", function () {
 
+
+    for(let i=1; i<=5; i++){
+        
+        // Arbeitsbeginn
+        values.zeiten["tag"+ i].start = "00:00"
+        // Arbeitsende
+        values.zeiten["tag"+ i].ende = "00:00"
+        // Pausen
+        values.zeiten["tag"+ i].pause1 = 0
+        values.zeiten["tag"+ i].pause2 = 0
+        values.zeiten["tag"+ i].pause3 = 0
+    }
+    save()
+    mathTime()
+    refreshDisplayZeit()
+})
