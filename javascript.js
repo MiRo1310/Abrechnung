@@ -435,50 +435,64 @@ if (buttonUebernahmeZeit){
 
 // ANCHOR Refresh Display Zeit
 const refreshDisplayZeit = function () {    
-    // Arbeitsbeginn
-    tB1.value = values.zeiten.tag1.start
-    tB2.value = values.zeiten.tag2.start
-    tB3.value = values.zeiten.tag3.start
-    tB4.value = values.zeiten.tag4.start
-    tB5.value = values.zeiten.tag5.start
+    for(let i=1; i<=5; i++){
 
-    // Arbeitsende
-    tE1.value = values.zeiten.tag1.ende
-    tE2.value = values.zeiten.tag2.ende
-    tE3.value = values.zeiten.tag3.ende
-    tE4.value = values.zeiten.tag4.ende
-    tE5.value = values.zeiten.tag5.ende
+        // Arbeitsbeginn
+        let tB = document.getElementById("tB" + i)
+        tB.value = values.zeiten["tag"+ i].start
+        // Arbeitsende
+        let tE = document.getElementById("tE" + i)
+        tE.value = values.zeiten["tag"+ i].ende
+        // Pausen
+        let tP = document.getElementsByClassName("t" + i + "P")
+        tP[0].value = values.zeiten["tag"+ i].pause1
+        tP[1].value = values.zeiten["tag"+ i].pause2
+        tP[2].value = values.zeiten["tag"+ i].pause3
+    }
+    // // Arbeitsbeginn
+    // tB1.value = values.zeiten.tag1.start
+    // tB2.value = values.zeiten.tag2.start
+    // tB3.value = values.zeiten.tag3.start
+    // tB4.value = values.zeiten.tag4.start
+    // tB5.value = values.zeiten.tag5.start
 
-    // Pausen
-    const tag1Pause = document.getElementsByClassName("t1P")
-    tag1Pause[0].value = values.zeiten.tag1.pause1
-    tag1Pause[1].value = values.zeiten.tag1.pause2
-    tag1Pause[2].value = values.zeiten.tag1.pause3
-    //tag1Pause[3].value = values.zeiten.tag1.pause4
+    // // Arbeitsende
+    // tE1.value = values.zeiten.tag1.ende
+    // tE2.value = values.zeiten.tag2.ende
+    // tE3.value = values.zeiten.tag3.ende
+    // tE4.value = values.zeiten.tag4.ende
+    // tE5.value = values.zeiten.tag5.ende
 
-    const tag2Pause = document.getElementsByClassName("t2P")
-    tag2Pause[0].value = values.zeiten.tag2.pause1
-    tag2Pause[1].value = values.zeiten.tag2.pause2
-    tag2Pause[2].value = values.zeiten.tag2.pause3
-    //tag2Pause[3].value = values.zeiten.tag2.pause4
+    // // Pausen
+    // const tag1Pause = document.getElementsByClassName("t1P")
+    // tag1Pause[0].value = values.zeiten.tag1.pause1
+    // tag1Pause[1].value = values.zeiten.tag1.pause2
+    // tag1Pause[2].value = values.zeiten.tag1.pause3
+    // //tag1Pause[3].value = values.zeiten.tag1.pause4
 
-    const tag3Pause = document.getElementsByClassName("t3P")
-    tag3Pause[0].value = values.zeiten.tag3.pause1
-    tag3Pause[1].value = values.zeiten.tag3.pause2
-    tag3Pause[2].value = values.zeiten.tag3.pause3
-    //tag3Pause[3].value = values.zeiten.tag3.pause4
+    // const tag2Pause = document.getElementsByClassName("t2P")
+    // tag2Pause[0].value = values.zeiten.tag2.pause1
+    // tag2Pause[1].value = values.zeiten.tag2.pause2
+    // tag2Pause[2].value = values.zeiten.tag2.pause3
+    // //tag2Pause[3].value = values.zeiten.tag2.pause4
 
-    const tag4Pause = document.getElementsByClassName("t4P")
-    tag4Pause[0].value = values.zeiten.tag4.pause1
-    tag4Pause[1].value = values.zeiten.tag4.pause2
-    tag4Pause[2].value = values.zeiten.tag4.pause3
-    //tag4Pause[3].value = values.zeiten.tag4.pause4
+    // const tag3Pause = document.getElementsByClassName("t3P")
+    // tag3Pause[0].value = values.zeiten.tag3.pause1
+    // tag3Pause[1].value = values.zeiten.tag3.pause2
+    // tag3Pause[2].value = values.zeiten.tag3.pause3
+    // //tag3Pause[3].value = values.zeiten.tag3.pause4
 
-    const tag5Pause = document.getElementsByClassName("t5P")
-    tag5Pause[0].value = values.zeiten.tag5.pause1
-    tag5Pause[1].value = values.zeiten.tag5.pause2
-    tag5Pause[2].value = values.zeiten.tag5.pause3
-    //tag5Pause[3].value = values.zeiten.tag5.pause4
+    // const tag4Pause = document.getElementsByClassName("t4P")
+    // tag4Pause[0].value = values.zeiten.tag4.pause1
+    // tag4Pause[1].value = values.zeiten.tag4.pause2
+    // tag4Pause[2].value = values.zeiten.tag4.pause3
+    // //tag4Pause[3].value = values.zeiten.tag4.pause4
+
+    // const tag5Pause = document.getElementsByClassName("t5P")
+    // tag5Pause[0].value = values.zeiten.tag5.pause1
+    // tag5Pause[1].value = values.zeiten.tag5.pause2
+    // tag5Pause[2].value = values.zeiten.tag5.pause3
+    // //tag5Pause[3].value = values.zeiten.tag5.pause4
 
     mathTime()
 
@@ -552,21 +566,25 @@ const mathTime = function (){
 // ANCHOR Button zurücksetzen Zeit
 
 const zeitZurueck = document.getElementById("zuruecksetzenZeit")
-zeitZurueck.addEventListener("click", function () {
+if (zeitZurueck){
+
+    zeitZurueck.addEventListener("click", function () {
 
 
-    for(let i=1; i<=5; i++){
-        
-        // Arbeitsbeginn
-        values.zeiten["tag"+ i].start = "00:00"
-        // Arbeitsende
-        values.zeiten["tag"+ i].ende = "00:00"
-        // Pausen
-        values.zeiten["tag"+ i].pause1 = 0
-        values.zeiten["tag"+ i].pause2 = 0
-        values.zeiten["tag"+ i].pause3 = 0
-    }
-    save()
-    mathTime()
-    refreshDisplayZeit()
-})
+        for(let i=1; i<=5; i++){
+            
+            // Arbeitsbeginn
+            values.zeiten["tag"+ i].start = "00:00"
+            // Arbeitsende
+            values.zeiten["tag"+ i].ende = "00:00"
+            // Pausen
+            values.zeiten["tag"+ i].pause1 = 0
+            values.zeiten["tag"+ i].pause2 = 0
+            values.zeiten["tag"+ i].pause3 = 0
+        }
+        save()
+        mathTime()
+        refreshDisplayZeit()
+    
+    })
+}
