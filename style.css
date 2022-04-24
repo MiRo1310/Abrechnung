@@ -249,21 +249,25 @@ button {
 }
 
 /* Zeiten */
+
+.field span{
+    font-size: 0.7rem;
+}
 .day span{
     font-weight: bold;
+    font-size: 1.2rem;
 }
-
 
 #tabelleZeit {   
     margin-left: 1%;
-    width: 98%
-    
+    width: 98%  
     
 }
 
 
 .field {
     text-align: left;
+    width: 60%
       
     
 }
@@ -271,4 +275,6 @@ button {
 
 .field>input {
     width: 60%;
+    padding: 0; 
+       
 }
