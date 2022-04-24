@@ -249,15 +249,26 @@ button {
 }
 
 /* Zeiten */
-#tabelleZeit{
-    width: 99%;
-    margin-left: 0.5%;
-    
-}
-.field {
-    text-align: left;
+.day span{
+    font-weight: bold;
 }
 
+
+#tabelleZeit {   
+    margin-left: 1%;
+    width: 98%
+    
+    
+}
+
+
+.field {
+    text-align: left;
+      
+    
+}
+
+
 .field>input {
-    width: 95%;
+    width: 60%;
 }

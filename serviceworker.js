@@ -7,10 +7,10 @@
 // //   });
 
 
-// self.addEventListener('install', (e) => {
-//     console.log('[Service Worker] Install');
-//   });
-// use a cacheName for cache versioning
+self.addEventListener('install', (e) => {
+    console.log('[Service Worker] Install');
+  });
+//use a cacheName for cache versioning
 var cacheName = 'v1:static';
 
 // during the install phase you usually want to cache static assets
@@ -20,11 +20,11 @@ self.addEventListener('install', function(e) {
         caches.open(cacheName).then(function(cache) {
             return cache.addAll([
                 './',
-                './css/style.css',
-                './js/build/script.min.js',
-                './js/build/vendor.min.js',
-                './css/fonts/roboto.woff',
-                './offline.html'
+                './style.css',
+                // './js/build/script.min.js',
+                // './js/build/vendor.min.js',
+                // './css/fonts/roboto.woff',
+                // './offline.html'
             ]).then(function() {
                 self.skipWaiting();
             });

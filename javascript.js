@@ -1,40 +1,40 @@
-// isInWebAppiOS = (window.navigator.standalone == true);
-// isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
+isInWebAppiOS = (window.navigator.standalone == true);
+isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
 
-// let pwaSupport = false;
+let pwaSupport = false;
 
-// if ("serviceWorker" in navigator) {
-// 	pwaSupport = true; // iOS 11 oder neuer
-// 	navigator.serviceWorker.register ("serviceworker.js").then (function (result) {
-// 		console.log ("Service Worker registriert");
-// 	}, function (error) {
-// 		console.log ("Service Worker Registrierung fehlgeschlagen " + error);
-// 	});
-// } else {
-// 	console.log ("Service Worker nicht unterstützt");
-// }
+if ("serviceWorker" in navigator) {
+	pwaSupport = true; // iOS 11 oder neuer
+	navigator.serviceWorker.register ("serviceworker.js").then (function (result) {
+		console.log ("Service Worker registriert");
+	}, function (error) {
+		console.log ("Service Worker Registrierung fehlgeschlagen " + error);
+	});
+} else {
+	console.log ("Service Worker nicht unterstützt");
+}
 
-// window.onload = function () {
-// 	if (pwaSupport) {
-// 		let platform = navigator.platform;
-// 		if (platform === 'iPhone' || platform === 'iPad') {
-// 			// Die App ist noch nicht installiert
-// 			if (!navigator.standalone) {
-// 				let lastShown = parseInt (localStorage.getItem ('lastShown'));
-// 				let now = new Date().getTime ();
-// 				// lastShown NaN – App wurde noch nie geladen und Anweisung seit 7 Tagen nicht gezeigt
-// 				if (isNaN (lastShown) || (lastShown + 1000 * 60 * 60 * 24 * 7) <= now) {
-// 					document.getElementById("instructions").style.display = "block";
-// 					localStorage.setItem ("lastShown", now);
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+window.onload = function () {
+	if (pwaSupport) {
+		let platform = navigator.platform;
+		if (platform === 'iPhone' || platform === 'iPad') {
+			// Die App ist noch nicht installiert
+			if (!navigator.standalone) {
+				let lastShown = parseInt (localStorage.getItem ('lastShown'));
+				let now = new Date().getTime ();
+				// lastShown NaN – App wurde noch nie geladen und Anweisung seit 7 Tagen nicht gezeigt
+				if (isNaN (lastShown) || (lastShown + 1000 * 60 * 60 * 24 * 7) <= now) {
+					document.getElementById("instructions").style.display = "block";
+					localStorage.setItem ("lastShown", now);
+				}
+			}
+		}
+	}
+}
 
-// function hideInstructions () {
-// 	document.getElementById("instructions").style.display = "none";
-// }
+function hideInstructions () {
+	document.getElementById("instructions").style.display = "none";
+}
 
 
 // ANCHOR Values
@@ -121,7 +121,7 @@ let valuesOb = {
             pause4 : 0
         },
     }
-    }
+}
     
 
 let storgekey = "Abrechnung Roling"
@@ -264,7 +264,7 @@ function berechnung(){
     save();
 }
 
-// ANCHOR Button Zurücksetzen
+// ANCHOR Button Zurücksetzen Abrechung
 const zuruecksetzen = document.getElementById("zuruecksetzen")
 if(zuruecksetzen){
     zuruecksetzen.addEventListener("click", function() {
@@ -409,9 +409,7 @@ function gesamtErrechnen(){
 
 // ANCHOR Farbe Differenz Anpassen
 const style = function (val){
-    console.log("test")
-    console.log(typeof(val))
-
+   
     const dif = document.getElementById("dif")
     if (val === 0){
         console.log("ist gleich")
@@ -537,7 +535,7 @@ const mathTime = function (){
             zeitPause += parseFloat(pause.value)
                     }
         
-        if (timeE > timeB){
+        // if (timeE > timeB){
             const arbeitszeit = (timeE - timeB)/60000 - zeitPause
             const gesamtTag = document.getElementById("t" + i + "G")
             gesamtTag.value = (arbeitszeit/60).toFixed(2);
@@ -545,7 +543,7 @@ const mathTime = function (){
             gesamtStd.innerHTML = gesamtStunden.toFixed(2)
             values.zeiten.gesamtStunden = gesamtStunden.toFixed(2)
 
-        }
+        // }
         save()
     }
 
