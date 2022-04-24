@@ -250,12 +250,15 @@ button {
 
 /* Zeiten */
 
+td.first {
+    width: 15%
+}
 .field span{
-    font-size: 0.7rem;
+     font-size: 0.7rem;
 }
 .day span{
     font-weight: bold;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
 }
 
 #tabelleZeit {   
@@ -267,7 +270,7 @@ button {
 
 .field {
     text-align: left;
-    width: 60%
+    width: 17%
       
     
 }
