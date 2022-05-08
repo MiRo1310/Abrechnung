@@ -1,0 +1,289 @@
+body {
+    background-color: #fe7e10;
+    margin: 0;
+}
+.clearfix{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+header {
+    width: 90%;    
+    margin-top: 5px;;
+    margin-left: 5%;
+    background-color: white;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    
+}
+
+img {
+    width: 150px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;          
+}
+
+#mobile-nav-button {
+    background-color: #888;
+    color: white;
+    width: 30px;
+    height: 30px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+    float: right;
+    margin-right: 10px;
+}
+
+#dropdown {
+    display: block;
+    position: relative;
+    float: right;
+}
+
+#mobile-nav-content {
+    width: auto;    
+    height: auto;    
+    background-color: #ccc;
+    display: none;
+    position: absolute;
+    float: right;
+    top: 30px;
+    right: 10px;
+    z-index: 6;
+    
+    border: 2px solid black;
+    
+
+}
+
+#mobile-nav-content>a {
+    text-decoration: none;
+    color:#000;
+    display: block;
+    font-size: 1.6rem;    
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+    text-align: right; 
+   
+    
+}
+#mobile-nav-content>a:hover {    
+    background-color: #eee;   
+}
+
+.active {
+    background-color: #eee;
+}
+
+
+h1 {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin-top: -10px;
+    margin-bottom: 5px;
+    text-decoration: underline;
+}
+
+[class*="feld"] {
+    background-color: #EEE;
+}
+
+
+
+.feld2 {
+    width: 25%;
+    text-align: right;
+}
+.feld3 {
+    width: 20%
+}
+.feld4 {
+    width: 30%;
+}
+
+th {
+    background-color: #aaa;
+    font-size: 1rem;
+    
+    
+}
+td {
+    height: 35px;
+    text-align: right;
+    
+}
+input {
+    width: 40%;
+    font-size: 0.8em;
+    z-index: 40;
+}
+td.artikel {
+    text-align: left;
+    font-size: 0.8rem;
+    
+}
+input {
+    text-align: right;
+}
+.einheiten_menge {
+    display: inline-block;
+    width: 35px;
+    
+}
+.brutto {
+    font-size: 1.0rem;
+    font-weight: bolder;
+}
+
+.button-feld {
+    width: 70%;
+    max-width: 200px;
+    position:absolute;
+    top: 450px;
+    left: 10px;
+    height: 130px;
+    
+    background-color: #ccc;
+    
+
+}
+.button-feld2 {
+    width: 30%;
+    max-width: 112px;
+    position:absolute;
+    background-color: #ccc;
+    left: 10px;
+    height: 60px;
+    margin-top: 100px;
+    border: 5px solid #aaa
+}
+button {
+   display: block;
+   margin-top: 15px;
+   margin-left: 7px;
+   height: 30px;
+   background-color: #aaa;
+}
+#eu-ausland {
+    width:20px;
+    height:15px;
+}
+
+
+/* Zählen */
+
+
+   
+
+#tabelleZaehlen {
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ccc; 
+    position: relative;
+    height: 160px;     
+    
+}
+#tabelleZeit {
+    
+    background-color: #ccc; 
+    position: relative;
+    
+    
+}
+
+ 
+ #tabelleZaehlen>tbody>tr>td>input {
+    float: left;
+    position: relative;
+    left: 8px;
+    z-index: 5;
+    
+   
+}
+#tabelleZaehlen>tbody>tr>td>span{
+    right: 10px;
+    font-weight: bold;
+} 
+#ergebnis{
+    position: relative;
+    float: right;   
+    background-color: #ccc;
+    width: 300px;
+    right: 0.5%;
+    margin-top: 10px;
+    z-index: 5;
+     
+}
+#ergebnis>p {
+    
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 90%;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto; 
+     
+
+}
+
+#ergebnis>p>span {
+    float:right;    
+} 
+
+#dif {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: #aaa;
+}
+
+/* Zeiten */
+
+td.first {
+    width: 15%
+}
+
+.field span{
+     font-size: 0.7rem;
+}
+.day span{
+    font-weight: bold;
+    font-size: 1.2rem; 
+}
+
+#tabelleZeit {   
+    margin-left: 1%;
+    width: 98%;
+    background-color: #fe7e10
+     
+}
+
+#tabelleZeit td.field {
+    background-color: #eee;
+}
+
+
+.field {
+    text-align: left;
+    width: 17%;          
+}
+
+
+.field>input {
+    width: 90%;
+    padding: 0;          
+}
+
+#ergebnis {
+    margin-right: 1%;
+} 
