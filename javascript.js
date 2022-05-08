@@ -312,7 +312,7 @@ const euAusland = function(){
             for(let i = 0; i<document.getElementsByClassName("displayNone").length; i++) {
                 document.getElementsByClassName("displayNone")[i].style.visibility ="hidden"
             }     
-            document.getElementsByClassName("button-feld")[0].style.top ="435px"             
+            document.getElementsByClassName("button-feld")[0].style.top ="450px"             
         } else {
             values.ausland = false;
             document.getElementById("textEu").innerHTML = "Netto";
@@ -503,7 +503,7 @@ const fields = document.querySelectorAll(".field input")
 for(const input of fields){
     input.addEventListener("change", function (){
 
-        console.log("Change")
+        
         const zeiten = values.zeiten;
         for(let i = 1; i<=5; i++){
             // Zeit Beginn          
@@ -552,8 +552,16 @@ const mathTime = function (){
         // if (timeE > timeB){
             const arbeitszeit = (timeE - timeB)/60000 - zeitPause
             const gesamtTag = document.getElementById("t" + i + "G")
-            gesamtTag.value = (arbeitszeit/60).toFixed(2);
-            gesamtStunden += parseFloat(arbeitszeit/60);
+
+            if (arbeitszeit >= 0 ){
+                gesamtTag.value = (arbeitszeit/60).toFixed(2);
+                gesamtStunden += parseFloat(arbeitszeit/60);
+            } else {
+                let value = 0
+                gesamtTag.value = value.toFixed(2);
+            }
+            
+            
             gesamtStd.innerHTML = gesamtStunden.toFixed(2)
             values.zeiten.gesamtStunden = gesamtStunden.toFixed(2)
 
