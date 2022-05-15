@@ -192,11 +192,24 @@ addEventListener("load", function(){
 
 
 // ANCHOR Nav Button
-// Nav Button sichtbar machen
+// Nav Button unsichbar machen, wenn auf der Seite geklickt wird
+
+const body = document.querySelector("body")
+body.addEventListener("click", function(){
+
+    
+})
+
+// Nav Button steuern
+
 const mobileNavButton = document.getElementById("mobile-nav-button")
 mobileNavButton.addEventListener("click", function (){
-    document.getElementById("mobile-nav-content").style.display ="block";
+    document.getElementById("mobile-nav-content").classList.toggle("display")
+    
 })
+
+
+
 
 // ANCHOR Save
 function save(){
