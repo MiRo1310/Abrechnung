@@ -1,128 +1,100 @@
-isInWebAppiOS = (window.navigator.standalone == true);
-isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
-
-let pwaSupport = false;
-
-if ("serviceWorker" in navigator) {
-	pwaSupport = true; // iOS 11 oder neuer
-	navigator.serviceWorker.register ("serviceworker.js").then (function (result) {
-		console.log ("Service Worker registriert");
-	}, function (error) {
-		console.log ("Service Worker Registrierung fehlgeschlagen " + error);
-	});
-} else {
-	console.log ("Service Worker nicht unterstützt");
-}
-
-window.onload = function () {
-	if (pwaSupport) {
-		let platform = navigator.platform;
-		if (platform === 'iPhone' || platform === 'iPad') {
-			// Die App ist noch nicht installiert
-			if (!navigator.standalone) {
-				let lastShown = parseInt (localStorage.getItem ('lastShown'));
-				let now = new Date().getTime ();
-				// lastShown NaN – App wurde noch nie geladen und Anweisung seit 7 Tagen nicht gezeigt
-				if (isNaN (lastShown) || (lastShown + 1000 * 60 * 60 * 24 * 7) <= now) {
-					document.getElementById("instructions").style.display = "block";
-					localStorage.setItem ("lastShown", now);
-				}
-			}
-		}
-	}
-}
-
-function hideInstructions () {
-	document.getElementById("instructions").style.display = "none";
-}
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("serviceworker.js", { scope: "/" })
+            .then(() => { console.log("Service Worker registriert") })
+            .catch((error) => { console.log("Service Worker Registrierung fehlgeschlagen " + error) })
+    } else {
+        console.log("Service Worker nicht unterstützt");
+    }
+})
 // ANCHOR Values
 let valuesOb = {
-    holzspalter:{
-        menge_holzspalter : 0,
-        stundenlohn : 150,
-        stundenlohnRabatt : 140,
+    holzspalter: {
+        menge_holzspalter: 0,
+        stundenlohn: 150,
+        stundenlohnRabatt: 140,
     },
-    anfahrtKm :{
+    anfahrtKm: {
         menge_kilometer: 0,
-        p_kilometer : 0.95,
+        p_kilometer: 0.95,
     },
-    anfahrtPauschal:{
-        menge : 0,
+    anfahrtPauschal: {
+        menge: 0,
         kilometer_pauschal: 35,
     },
-    eurovignette:{
-        tage : 0,
+    eurovignette: {
+        tage: 0,
         eurovignette: 12,
     },
-    sonstiges :{
-        menge : 0,
+    sonstiges: {
+        menge: 0,
         sonstiges: 0,
-    },   
+    },
     mwstsatz: 19,
     gesamtBetrag: 0,
     ausland: false,
-    zaehlen:{
-        val : {
-            fuenf : 0,
-            zehn : 0,
-            zwanzig : 0,
-            fuenfzig : 0,
-            hundert : 0,
-            zweihundert : 0,
-            fuenfhundert : 0,
+    zaehlen: {
+        val: {
+            fuenf: 0,
+            zehn: 0,
+            zwanzig: 0,
+            fuenfzig: 0,
+            hundert: 0,
+            zweihundert: 0,
+            fuenfhundert: 0,
         },
-        soll : 0,
-        ist : 0,
+        soll: 0,
+        ist: 0,
         differenz: 0
 
+    },
+    zeiten: {
+        gesamtStunden: 0,
+        tag1: {
+            start: "00:00",
+            ende: "00:00",
+            pause1: 0,
+            pause2: 0,
+            pause3: 0,
+            pause4: 0
         },
-    zeiten:{
-        gesamtStunden:0,
-        tag1:{
-            start : "00:00",
-            ende : "00:00",
-            pause1 : 0,
-            pause2 : 0,
-            pause3 : 0,
-            pause4 : 0
+        tag2: {
+            start: "00:00",
+            ende: "00:00",
+            pause1: 0,
+            pause2: 0,
+            pause3: 0,
+            pause4: 0
         },
-        tag2:{
-            start : "00:00",
-            ende : "00:00",
-            pause1 : 0,
-            pause2 : 0,
-            pause3 : 0,
-            pause4 : 0
+        tag3: {
+            start: "00:00",
+            ende: "00:00",
+            pause1: 0,
+            pause2: 0,
+            pause3: 0,
+            pause4: 0
         },
-        tag3:{
-            start : "00:00",
-            ende : "00:00",
-            pause1 : 0,
-            pause2 : 0,
-            pause3 : 0,
-            pause4 : 0
+        tag4: {
+            start: "00:00",
+            ende: "00:00",
+            pause1: 0,
+            pause2: 0,
+            pause3: 0,
+            pause4: 0
         },
-        tag4:{
-            start : "00:00",
-            ende : "00:00",
-            pause1 : 0,
-            pause2 : 0,
-            pause3 : 0,
-            pause4 : 0
-        },
-        tag5:{
-            start : "00:00",
-            ende : "00:00",
-            pause1 : 0,
-            pause2 : 0,
-            pause3 : 0,
-            pause4 : 0
+        tag5: {
+            start: "00:00",
+            ende: "00:00",
+            pause1: 0,
+            pause2: 0,
+            pause3: 0,
+            pause4: 0
         },
     }
 }
-    
+
 
 let storgekey = "Abrechnung Roling"
 let values;
@@ -133,10 +105,10 @@ let values;
 
 // Auf Änderungen reagieren
 let objectsOfChange = document.getElementsByClassName("input")
-for (const element of objectsOfChange){
-    element.addEventListener("change", function(){
+for (const element of objectsOfChange) {
+    element.addEventListener("change", function () {
         console.log(JSON.stringify(values));
-        
+
         values.holzspalter.menge_holzspalter = parseFloat(document.getElementById("zeit").value)
         values.holzspalter.stundenlohn = parseFloat(document.getElementById("p_stunde").value)
 
@@ -145,10 +117,10 @@ for (const element of objectsOfChange){
 
         values.anfahrtPauschal.menge = parseFloat(document.getElementById("pauschal").value)
         values.anfahrtPauschal.kilometer_pauschal = parseFloat(document.getElementById("p_kilo_pauschal").value)
-        
+
         values.eurovignette.tage = parseFloat(document.getElementById("euro").value)
         values.eurovignette.eurovignette = parseFloat(document.getElementById("p_euro").value)
-        
+
         values.sonstiges.menge = parseFloat(document.getElementById("sonstiges").value)
         values.sonstiges.sonstiges = parseFloat(document.getElementById("p_sonstiges").value)
 
@@ -159,107 +131,133 @@ for (const element of objectsOfChange){
 }
 
 // ANCHOR Load
-addEventListener("load", function(){
-    console.log(this.localStorage.getItem(storgekey))            
-    if (this.localStorage.getItem(storgekey) && localStorage.getItem(storgekey) != '""' ){
+addEventListener("load", function () {
+    console.log(this.localStorage.getItem(storgekey))
+    if (this.localStorage.getItem(storgekey) && localStorage.getItem(storgekey) != '""') {
         console.log("Loading")
-                
+
         values = JSON.parse(localStorage.getItem(storgekey));
-        
-        if (document.URL.includes("index.html")){
-            if (values.ausland){
+
+        if (document.URL.includes("index.html")) {
+            if (values.ausland) {
                 let eu = this.document.getElementById("eu-ausland")
                 eu.setAttribute("checked", "checked")
                 euAusland()
 
             }
-            berechnung(); 
-            if (values){    
+            berechnung();
+            if (values) {
                 refreshDisplay();
             }
-        } else if (document.URL.includes("zaehlen.html")){
+        } else if (document.URL.includes("zaehlen.html")) {
             refreshDisplayZaehlen();
-        } else if (document.URL.includes("zeit.html")){
+        } else if (document.URL.includes("zeit.html")) {
             refreshDisplayZeit();
-        }               
+        }
     } else {
         console.log("First Value")
         values = valuesOb
         save();
     }
-    
+
 })
 
 
 // ANCHOR Nav Button
 // Nav Button unsichbar machen, wenn auf der Seite geklickt wird
 
-const body = document.querySelector("body")
-body.addEventListener("click", function(){
+const elemets = document.querySelectorAll("*:not(#mobile-nav-button)")
+console.log(elemets)
+for (let element of elemets) {
+    element.addEventListener("click", function () {
+        console.log("Test")
 
-    
-})
+    })
 
-// Nav Button steuern
+}
 
-const mobileNavButton = document.getElementById("mobile-nav-button")
-mobileNavButton.addEventListener("click", function (){
-    document.getElementById("mobile-nav-content").classList.toggle("display")
-    
-})
+
+// // Nav Button steuern
+
+// const mobileNavButton = document.getElementById("mobile-nav-button")
+// mobileNavButton.addEventListener("click", function (){
+//     document.getElementById("mobile-nav-content").classList.toggle("display")
+
+// })
 
 
 
 
 // ANCHOR Save
-function save(){
+function save() {
     localStorage.setItem(storgekey, JSON.stringify(values))
 }
 
 // ANCHOR Refresh Display
-function refreshDisplay(){
-       
-            // Holzspalter
-            zeit.value = values.holzspalter.menge_holzspalter;
-            p_stunde.value = values.holzspalter.stundenlohn;
-            // Anfahrt km
-            kilometer.value = values.anfahrtKm.menge_kilometer;
-            p_kilo.value = values.anfahrtKm.p_kilometer.toFixed(2);
-            // Anfahrt pauschal
-            pauschal.value = values.anfahrtPauschal.menge
-            p_kilo_pauschal.value = values.anfahrtPauschal.kilometer_pauschal;
-            // Eurovignette
-            euro.value = values.eurovignette.tage;
-            p_euro.value = values.eurovignette.eurovignette;
-            // Sonstiges
-            sonstiges.value = values.sonstiges.menge;
-            p_sonstiges.value = values.sonstiges.sonstiges;
-            // MwSt
-            mwstsatz.value = values.mwstsatz;
-            
+function refreshDisplay() {
+
+    // Holzspalter
+    zeit.value = values.holzspalter.menge_holzspalter;
+    p_stunde.value = values.holzspalter.stundenlohn;
+    // Anfahrt km
+    kilometer.value = values.anfahrtKm.menge_kilometer;
+    p_kilo.value = values.anfahrtKm.p_kilometer.toFixed(2);
+    // Anfahrt pauschal
+    pauschal.value = values.anfahrtPauschal.menge
+    p_kilo_pauschal.value = values.anfahrtPauschal.kilometer_pauschal;
+    // Eurovignette
+    euro.value = values.eurovignette.tage;
+    p_euro.value = values.eurovignette.eurovignette;
+    // Sonstiges
+    sonstiges.value = values.sonstiges.menge;
+    p_sonstiges.value = values.sonstiges.sonstiges;
+    // MwSt
+    mwstsatz.value = values.mwstsatz;
+
 }
 
 // ANCHOR Berechung
-function berechnung(){
+function berechnung() {
 
     // Holzspalter
-    gesamtStundenlohn = values.holzspalter.menge_holzspalter * values.holzspalter.stundenlohn//document.getElementById("zeit").value * p_stunde.value;
+    if (values.holzspalter.menge_holzspalter && values.holzspalter.stundenlohn) {
+        gesamtStundenlohn = values.holzspalter.menge_holzspalter * values.holzspalter.stundenlohn
+
+    } else {
+        gesamtStundenlohn = 0;
+    }
     g_stunde.innerHTML = gesamtStundenlohn.toFixed(2);
-    
+
     // Kilometer
-    gesamtKilometer = values.anfahrtKm.menge_kilometer * values.anfahrtKm.p_kilometer;
+    if (values.anfahrtKm.menge_kilometer && values.anfahrtKm.p_kilometer) {
+        gesamtKilometer = values.anfahrtKm.menge_kilometer * values.anfahrtKm.p_kilometer;
+    } else {
+        gesamtKilometer = 0;
+    }
     g_kilo.innerHTML = gesamtKilometer.toFixed(2);
 
     // Kilometer pauschal
-    gesamtKilometerPauschal = values.anfahrtPauschal.menge * values.anfahrtPauschal.kilometer_pauschal;
+    if (values.anfahrtPauschal.menge && values.anfahrtPauschal.kilometer_pauschal) {
+        gesamtKilometerPauschal = values.anfahrtPauschal.menge * values.anfahrtPauschal.kilometer_pauschal;
+    } else {
+        gesamtKilometerPauschal = 0;
+    }
     g_kilo_pauschal.innerHTML = gesamtKilometerPauschal.toFixed(2);
 
     // Eurovignette
-    gesamtEuro = values.eurovignette.tage * values.eurovignette.eurovignette;
+    if (values.eurovignette.tage && values.eurovignette.eurovignette) {
+        gesamtEuro = values.eurovignette.tage * values.eurovignette.eurovignette;
+    } else {
+        gesamtEuro = 0;
+    }
     g_euro.innerHTML = gesamtEuro.toFixed(2);
 
     // Sonstiges
-    gesamtSonstiges = values.sonstiges.menge * values.sonstiges.sonstiges;
+    if (values.sonstiges.menge && values.sonstiges.sonstiges) {
+        gesamtSonstiges = values.sonstiges.menge * values.sonstiges.sonstiges;
+    } else {
+        gesamtSonstiges = 0;
+    }
     g_sonstiges.innerHTML = gesamtSonstiges.toFixed(2);
 
     // Berechnung Ergebnis
@@ -269,9 +267,9 @@ function berechnung(){
     g_mwst.innerHTML = mwst.toFixed(2);
     gesamtBrutto = gesamtNetto * (100 + values.mwstsatz) / 100;
     gesamt.innerHTML = gesamtBrutto.toFixed(2);
-    if (values.ausland){
+    if (values.ausland) {
         values.gesamtBetrag = gesamtNetto
-    } else{
+    } else {
         values.gesamtBetrag = gesamtBrutto
     }
     save();
@@ -279,64 +277,64 @@ function berechnung(){
 
 // ANCHOR Button Zurücksetzen Abrechung
 const zuruecksetzen = document.getElementById("zuruecksetzen")
-if(zuruecksetzen){
-    zuruecksetzen.addEventListener("click", function() {
-        values.holzspalter.menge_holzspalter = 0;
-        values.anfahrtKm.menge_kilometer = 0;
-        values.anfahrtPauschal.menge = 0;
-        values.eurovignette.tage = 0;
-        values.sonstiges.menge = 0;
+if (zuruecksetzen) {
+    zuruecksetzen.addEventListener("click", function () {
+        values.holzspalter.menge_holzspalter = null;
+        values.anfahrtKm.menge_kilometer = null;
+        values.anfahrtPauschal.menge = null;
+        values.eurovignette.tage = null;
+        values.sonstiges.menge = null;
         // save();
         refreshDisplay();
-        berechnung();  
+        berechnung();
     })
 }
 
 // ANCHOR Button Zurücksetzen Zählen
 const zuruecksetzenZaehlen = document.getElementById("zuruecksetzen2")
-if (zuruecksetzenZaehlen){
-    zuruecksetzenZaehlen.addEventListener("click", function(){
-        values.zaehlen.val.fuenf = 0
-        values.zaehlen.val.zehn = 0
-        values.zaehlen.val.zwanzig = 0
-        values.zaehlen.val.fuenfzig = 0
-        values.zaehlen.val.hundert = 0
-        values.zaehlen.val.zweihundert = 0
-        values.zaehlen.val.fuenfhundert = 0 
+if (zuruecksetzenZaehlen) {
+    zuruecksetzenZaehlen.addEventListener("click", function () {
+        values.zaehlen.val.fuenf = null;
+        values.zaehlen.val.zehn = null;
+        values.zaehlen.val.zwanzig = null;
+        values.zaehlen.val.fuenfzig = null;
+        values.zaehlen.val.hundert = null;
+        values.zaehlen.val.zweihundert = null;
+        values.zaehlen.val.fuenfhundert = null;
         refreshDisplayZaehlen();
     })
 }
 
 // ANCHOR EU Ausland Event
 const euAuslandEvent = document.getElementById("eu-ausland")
-if (euAuslandEvent){
-    euAuslandEvent.addEventListener("click", function(){
+if (euAuslandEvent) {
+    euAuslandEvent.addEventListener("click", function () {
         euAusland()
-        
+
     })
 }
 
-// ANCHOR EU Ausland Funtion
-const euAusland = function(){
-    if (document.getElementById("eu-ausland").checked == true){
-            values.ausland = true;
-            
-            document.getElementById("textEu").innerHTML = "Gesamt";
-            for(let i = 0; i<document.getElementsByClassName("displayNone").length; i++) {
-                document.getElementsByClassName("displayNone")[i].style.visibility ="hidden"
-            }     
-            document.getElementsByClassName("button-feld")[0].style.top ="450px"             
-        } else {
-            values.ausland = false;
-            document.getElementById("textEu").innerHTML = "Netto";
-            for(let i = 0; i<document.getElementsByClassName("displayNone").length; i++) {
-                document.getElementsByClassName("displayNone")[i].style.visibility ="visible"
-            }                        
-            document.getElementsByClassName("button-feld")[0].style.bottom ="10px"    
+// ANCHOR EU Ausland Funktion
+const euAusland = function () {
+    if (document.getElementById("eu-ausland").checked == true) {
+        values.ausland = true;
+
+        document.getElementById("textEu").innerHTML = "Gesamt";
+        for (let i = 0; i < document.getElementsByClassName("displayNone").length; i++) {
+            document.getElementsByClassName("displayNone")[i].style.visibility = "hidden"
         }
-        save();
-        berechnung();
         
+    } else {
+        values.ausland = false;
+        document.getElementById("textEu").innerHTML = "Netto";
+        for (let i = 0; i < document.getElementsByClassName("displayNone").length; i++) {
+            document.getElementsByClassName("displayNone")[i].style.visibility = "visible"
+        }
+        document.getElementsByClassName("button-feld")[0].style.bottom = "10px"
+    }
+    save();
+    berechnung();
+
 }
 
 // ANCHOR Zählen
@@ -355,8 +353,8 @@ let gesamtZaehlen;
 // ANCHOR Auf Änderungen reagieren
 
 const valuechange = document.getElementsByClassName("compute");
-for (const element of valuechange){
-    element.addEventListener("change", function(){
+for (const element of valuechange) {
+    element.addEventListener("change", function () {
         values.zaehlen.val.fuenf = fuenf.value
         values.zaehlen.val.zehn = zehn.value
         values.zaehlen.val.zwanzig = zwanzig.value
@@ -372,11 +370,11 @@ for (const element of valuechange){
 
 // ANCHOR Refresh Display Zählen
 
-function refreshDisplayZaehlen(){
-    
+function refreshDisplayZaehlen() {
+
     soll.innerHTML = parseFloat(values.gesamtBetrag).toFixed(2)
     values.zaehlen.soll = parseFloat(values.gesamtBetrag).toFixed(2)
-    
+
     fuenf.value = values.zaehlen.val.fuenf
     zehn.value = values.zaehlen.val.zehn
     zwanzig.value = values.zaehlen.val.zwanzig
@@ -385,13 +383,13 @@ function refreshDisplayZaehlen(){
     zweihundert.value = values.zaehlen.val.zweihundert
     fuenfhundert.value = values.zaehlen.val.fuenfhundert
 
-    
+
     gezaehlt.innerHTML = values.zaehlen.ist
     differenz.innerHTML = values.zaehlen.differenz
     wertErmitteln()
 }
-    
-function  wertErmitteln(){
+
+function wertErmitteln() {
     inputMult();
     gesamtErrechnen();
     save();
@@ -399,7 +397,7 @@ function  wertErmitteln(){
 
 
 
-function inputMult(){
+function inputMult() {
     const val = values.zaehlen.val;
     ergFünf = val.fuenf * 5;
     ergZehn = val.zehn * 10;
@@ -408,11 +406,11 @@ function inputMult(){
     ergHundert = val.hundert * 100;
     ergZweiHundert = val.zweihundert * 200;
     ergFünfHundert = val.fuenfhundert * 500;
-   
+
 }
 
 
-function gesamtErrechnen(){
+function gesamtErrechnen() {
     values.zaehlen.ist = ergFünf + ergZehn + ergZwanzig + ergFünfzig + ergHundert + ergZweiHundert + ergFünfHundert;
     gezaehlt.innerHTML = values.zaehlen.ist;
     values.zaehlen.differenz = values.zaehlen.soll - values.zaehlen.ist
@@ -421,24 +419,24 @@ function gesamtErrechnen(){
 }
 
 // ANCHOR Farbe Differenz Anpassen
-const style = function (val){
-   
+const style = function (val) {
+
     const dif = document.getElementById("dif")
-    if (val === 0){
+    if (val === 0) {
         console.log("ist gleich")
         dif.style.backgroundColor = "#66ff33"
-    } else if (val != 0){
-        dif.style.backgroundColor ="red"
+    } else if (val != 0) {
+        dif.style.backgroundColor = "red"
     }
-    
+
 }
 
 // ANCHOR Übernahme Zeit 
 const buttonUebernahmeZeit = document.getElementById("uebernahmeStd")
-if (buttonUebernahmeZeit){
-    buttonUebernahmeZeit.addEventListener("click", function() {
+if (buttonUebernahmeZeit) {
+    buttonUebernahmeZeit.addEventListener("click", function () {
         zeit.value = values.zeiten.gesamtStunden
-        values.holzspalter.menge_holzspalter =  values.zeiten.gesamtStunden
+        values.holzspalter.menge_holzspalter = values.zeiten.gesamtStunden
         save()
         berechnung()
     })
@@ -447,20 +445,20 @@ if (buttonUebernahmeZeit){
 // ANCHOR Zeiten
 
 // ANCHOR Refresh Display Zeit
-const refreshDisplayZeit = function () {    
-    for(let i=1; i<=5; i++){
+const refreshDisplayZeit = function () {
+    for (let i = 1; i <= 5; i++) {
 
         // Arbeitsbeginn
         let tB = document.getElementById("tB" + i)
-        tB.value = values.zeiten["tag"+ i].start
+        tB.value = values.zeiten["tag" + i].start
         // Arbeitsende
         let tE = document.getElementById("tE" + i)
-        tE.value = values.zeiten["tag"+ i].ende
+        tE.value = values.zeiten["tag" + i].ende
         // Pausen
         let tP = document.getElementsByClassName("t" + i + "P")
-        tP[0].value = values.zeiten["tag"+ i].pause1
-        tP[1].value = values.zeiten["tag"+ i].pause2
-        tP[2].value = values.zeiten["tag"+ i].pause3
+        tP[0].value = values.zeiten["tag" + i].pause1
+        tP[1].value = values.zeiten["tag" + i].pause2
+        tP[2].value = values.zeiten["tag" + i].pause3
     }
     // // Arbeitsbeginn
     // tB1.value = values.zeiten.tag1.start
@@ -513,25 +511,25 @@ const refreshDisplayZeit = function () {
 
 // ANCHOR Event Change Zeiten
 const fields = document.querySelectorAll(".field input")
-for(const input of fields){
-    input.addEventListener("change", function (){
+for (const input of fields) {
+    input.addEventListener("change", function () {
 
-        
+
         const zeiten = values.zeiten;
-        for(let i = 1; i<=5; i++){
+        for (let i = 1; i <= 5; i++) {
             // Zeit Beginn          
-            const tB = document.getElementById("tB" + i)              
+            const tB = document.getElementById("tB" + i)
             zeiten["tag" + i].start = tB.value;
             // Zeit Ende
             const tE = document.getElementById("tE" + i)
             zeiten["tag" + i].ende = tE.value;
-      
+
             const tag = document.getElementsByClassName("t" + i + "P")
-            values.zeiten["tag"+i].pause1 = tag[0].value
-            values.zeiten["tag"+i].pause2 = tag[1].value
-            values.zeiten["tag"+i].pause3 = tag[2].value
+            values.zeiten["tag" + i].pause1 = tag[0].value
+            values.zeiten["tag" + i].pause2 = tag[1].value
+            values.zeiten["tag" + i].pause3 = tag[2].value
             // values.zeiten["tag"+i].pause4 = tag[3].value   
-                       
+
         }
 
         save()
@@ -541,42 +539,49 @@ for(const input of fields){
 
 // ANCHOR Berechnen Zeit
 
-const mathTime = function (){
+const mathTime = function () {
     let gesamtStunden = 0;
-    for(let i = 1; i<=5; i++){
+    for (let i = 1; i <= 5; i++) {
 
         const tB = document.getElementById("tB" + i)
         const tE = document.getElementById("tE" + i)
         const pausen = document.getElementsByClassName("t" + i + "P")
-        
+
         // Zeiten in Array Zerlegen
         const timeBArray = (tB.value.split(":"))
         const timeEArray = (tE.value.split(":"))
 
-        const timeB = new Date(00,00,00,timeBArray[0],timeBArray[1]).getTime()  
-        const timeE = new Date(00,00,00,timeEArray[0],timeEArray[1]).getTime()
-        
+        const timeB = new Date(00, 00, 00, timeBArray[0], timeBArray[1]).getTime()
+        const timeE = new Date(00, 00, 00, timeEArray[0], timeEArray[1]).getTime()
+
         let zeitPause = 0
         // Pausen zusammen addieren eines Tages
-        for (const pause of pausen){
-            zeitPause += parseFloat(pause.value)
-                    }
-        
-        // if (timeE > timeB){
-            const arbeitszeit = (timeE - timeB)/60000 - zeitPause
-            const gesamtTag = document.getElementById("t" + i + "G")
-
-            if (arbeitszeit >= 0 ){
-                gesamtTag.value = (arbeitszeit/60).toFixed(2);
-                gesamtStunden += parseFloat(arbeitszeit/60);
+        for (const pause of pausen) {
+            // Abfrage ob die Pause existiert
+            if (pause.value) {
+                zeitPause += parseFloat(pause.value)
             } else {
-                let value = 0
-                gesamtTag.value = value.toFixed(2);
+                zeitPause += 0
             }
-            
-            
-            gesamtStd.innerHTML = gesamtStunden.toFixed(2)
-            values.zeiten.gesamtStunden = gesamtStunden.toFixed(2)
+
+
+        }
+
+        // if (timeE > timeB){
+        const arbeitszeit = (timeE - timeB) / 60000 - zeitPause
+        const gesamtTag = document.getElementById("t" + i + "G")
+
+        if (arbeitszeit >= 0) {
+            gesamtTag.value = (arbeitszeit / 60).toFixed(2);
+            gesamtStunden += parseFloat(arbeitszeit / 60);
+        } else {
+            let value = 0
+            gesamtTag.value = value.toFixed(2);
+        }
+
+
+        gesamtStd.innerHTML = gesamtStunden.toFixed(2)
+        values.zeiten.gesamtStunden = gesamtStunden.toFixed(2)
 
         // }
         save()
@@ -587,25 +592,25 @@ const mathTime = function (){
 // ANCHOR Button zurücksetzen Zeit
 
 const zeitZurueck = document.getElementById("zuruecksetzenZeit")
-if (zeitZurueck){
+if (zeitZurueck) {
 
     zeitZurueck.addEventListener("click", function () {
 
 
-        for(let i=1; i<=5; i++){
-            
+        for (let i = 1; i <= 5; i++) {
+
             // Arbeitsbeginn
-            values.zeiten["tag"+ i].start = "00:00"
+            values.zeiten["tag" + i].start = null;
             // Arbeitsende
-            values.zeiten["tag"+ i].ende = "00:00"
+            values.zeiten["tag" + i].ende = null;
             // Pausen
-            values.zeiten["tag"+ i].pause1 = 0
-            values.zeiten["tag"+ i].pause2 = 0
-            values.zeiten["tag"+ i].pause3 = 0
+            values.zeiten["tag" + i].pause1 = null;
+            values.zeiten["tag" + i].pause2 = null;
+            values.zeiten["tag" + i].pause3 = null;
         }
         save()
         mathTime()
         refreshDisplayZeit()
-    
+
     })
 }

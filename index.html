@@ -1,112 +1,124 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><!-- kein heranzoomen-->
     <title>Abrechnung</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="theme-color" content="#fe7e10">
+    <meta name="description" content="App für die Abrechung">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel=”apple-touch-icon” href=”apple-icon-precomposed.png” type="image/png">
-
+    <link rel="apple-touch-icon" href="icons/apple-icon-180.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="icon" href="apple-icon-60x60.png" type="image/png">
-</head>
-
-
-<body>
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2048-2732.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2732-2048.jpg" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1668-2388.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2388-1668.jpg" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1536-2048.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2048-1536.jpg" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1668-2224.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2224-1668.jpg" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1620-2160.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2160-1620.jpg" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1284-2778.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2778-1284.jpg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1170-2532.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2532-1170.jpg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1125-2436.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2436-1125.jpg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1242-2688.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2688-1242.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-828-1792.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1792-828.jpg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1242-2208.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-2208-1242.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-750-1334.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1334-750.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="icons/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)">
+  </head>
+  <body>
 
     <!-- Logo -->
     <header>
-        <div><img src="img/branding.png" alt="Das Logo"></div>
+      <div><img src="img/branding.png" alt="Das Logo"></div>
     </header>
 
     <!-- Navigation -->
     <nav>
-
-        <a href="zeit.html">Arbeitszeit</a>
-        <a href="index.html" class="active">Abrechnung</a>
-        <a href="zaehlen.html">Zählen</a>
-
-
-
+      <a href="zeit.html">Arbeitszeit</a>
+      <a href="index.html" class="active">Abrechnung</a>
+      <a href="zaehlen.html">Zählen</a>
     </nav>
-
     <table>
+      <tbody>
         <tr>
-            <th>Artikel</th>
-            <th>Menge</th>
-            <th>Preis</th>
-            <th>Gesamt</th>
+          <th>Artikel</th>
+          <th>Menge</th>
+          <th>Preis</th>
+          <th>Gesamt</th>
         </tr>
         <tr>
-            <td class="feld1 artikel">Holzspalter</td>
-            <td class="feld2"><input class="input" id="zeit" type="number"><span class="einheiten_menge">Std</span></td>
-            <td class="feld3"><input class="input" type="number" id="p_stunde"><span> €</span></td>
-            <td class="feld4"><span id="g_stunde" type="number">0.00</span> <span> €</span></td>
+          <td class="feld1 artikel">Holzspalter</td>
+          <td class="feld2"><input class="input" id="zeit" type="number"><span class="einheiten_menge">Std</span></td>
+          <td class="feld3"><input class="input" type="number" id="p_stunde"><span> €</span></td>
+          <td class="feld4"><span id="g_stunde" type="number">0.00</span> <span> €</span></td>
         </tr>
         <tr>
-            <td class="feld1 artikel">Anfahrt</td>
-            <td class="feld2"><input class="input" type="number" id="kilometer"><span class="einheiten_menge">km</span>
-            </td>
-            <td class="feld3"><input class="input" type="number" step="0.05" id="p_kilo"><span> €</span></td>
-            <td class="feld4"><span id="g_kilo" type="number">0.00</span><span> €</span></td>
+          <td class="feld1 artikel">Anfahrt</td>
+          <td class="feld2"><input class="input" type="number" id="kilometer"><span class="einheiten_menge">km</span>
+          </td>
+          <td class="feld3"><input class="input" type="number" step="0.05" id="p_kilo"><span> €</span></td>
+          <td class="feld4"><span id="g_kilo" type="number">0.00</span><span> €</span></td>
         </tr>
         <tr>
-            <td class="feld1 artikel">Anfahrt</td>
-            <td class="feld2"><input class="input" type="number" id="pauschal"><span class="einheiten_menge">pau.</span>
-            </td>
-            <td class="feld3"><input class="input" type="number" id="p_kilo_pauschal"><span> €</span></td>
-            <td class="feld4"><span id="g_kilo_pauschal">0.00</span><span> €</span></td>
-        </tr>
-
-        <tr>
-            <td class="feld1 artikel">Eurovignette</td>
-            <td class="feld2"><input class="input" type="number" id="euro"><span class="einheiten_menge">Tage</span>
-            </td>
-            <td class="feld3"><input class="input" type="number" id="p_euro"><span> €</span></td>
-            <td class="feld4"><span id="g_euro">0.00</span><span> €</span></td>
+          <td class="feld1 artikel">Anfahrt</td>
+          <td class="feld2"><input class="input" type="number" id="pauschal"><span class="einheiten_menge">pau.</span>
+          </td>
+          <td class="feld3"><input class="input" type="number" id="p_kilo_pauschal"><span> €</span></td>
+          <td class="feld4"><span id="g_kilo_pauschal">0.00</span><span> €</span></td>
         </tr>
         <tr>
-            <td class="feld1 artikel">Sonstiges</td>
-            <td class="feld2"><input class="input" type="number" id="sonstiges"><span
-                    class="einheiten_menge">Stck</span></td>
-            <td class="feld3"><input class="input" id="p_sonstiges" type="number"><span> €</span></td>
-            <td class="feld4"><span id="g_sonstiges">0.00</span><span> €</span></td>
+          <td class="feld1 artikel">Eurovignette</td>
+          <td class="feld2"><input class="input" type="number" id="euro"><span class="einheiten_menge">Tage</span>
+          </td>
+          <td class="feld3"><input class="input" type="number" id="p_euro"><span> €</span></td>
+          <td class="feld4"><span id="g_euro">0.00</span><span> €</span></td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-            <td class="feld5" id="textEu">Netto</td>
-            <td class="feld4"><span id="g_netto">0.00</span><span> €</span></td>
-
+          <td class="feld1 artikel">Sonstiges</td>
+          <td class="feld2"><input class="input" type="number" id="sonstiges"><span class="einheiten_menge">Stck</span></td>
+          <td class="feld3"><input class="input" id="p_sonstiges" type="number"><span> €</span></td>
+          <td class="feld4"><span id="g_sonstiges">0.00</span><span> €</span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="feld5" id="textEu">Netto</td>
+          <td class="feld4"><span id="g_netto">0.00</span><span> €</span></td>
         </tr>
         <tr class="displayNone">
-            <td></td>
-            <td></td>
-            <td class="feld3"><input class="input" type="number" id="mwstsatz"> %</td>
-            <td class="feld4"><span id="g_mwst">0.00</span><span> €</span></td>
-
+          <td></td>
+          <td></td>
+          <td class="feld3"><input class="input" type="number" id="mwstsatz"> %</td>
+          <td class="feld4"><span id="g_mwst">0.00</span><span> €</span></td>
         </tr>
         <tr class="displayNone">
-            <td></td>
-            <td></td>
-            <td class="feld3 brutto">Brutto</td>
-            <td class="feld4 brutto"><span id="gesamt">0.00</span><span> €</span></td>
-
+          <td></td>
+          <td></td>
+          <td class="feld3 brutto">Brutto</td>
+          <td class="feld4 brutto"><span id="gesamt">0.00</span><span> €</span></td>
         </tr>
+      </tbody>
     </table>
     <div class="button-feld">
-        <input type="checkbox" id="eu-ausland" name="ausland">EU-Ausland
-        <button type="reset" id="zuruecksetzen" class="button">Zurücksetzen</button>
-        <button type="submit" id="uebernahmeStd" class="button">Stunden übernehmen</button>
+      <input type="checkbox" id="eu-ausland" name="ausland"><span class="text">EU-Ausland</span>
+      <button type="reset" id="zuruecksetzen" class="button">Zurücksetzen</button>
+      <button type="submit" id="uebernahmeStd" class="button">Stunden übernehmen</button>
     </div>
-
-
-    <script type="text/javascript" src="javascript.js"></script>
-</body>
-
+    <script type="text/javascript" src="app.js"></script>
+  </body>
 </html>

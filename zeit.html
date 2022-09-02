@@ -16,26 +16,19 @@
 <body>
 
     <!-- Logo -->
-    <header><img src="img/branding.png" alt="Das Logo"></header>
+    <header>
+        <div><img src="img/branding.png" alt="Das Logo"></div>
+      </header>
 
     <!-- Navigation -->
     <nav>
         
-        <div id="dropdown">
-            <div id="mobile-nav-button" class="clearfix">&equiv;</div>
-            <div class="clearfix display" id="mobile-nav-content">
-                <a href="zeit.html" class="active">Arbeitszeit</a>
-                <a href="index.html">Abrechnung</a>
-                <a href="zaehlen.html">Zählen</a>
-            </div>
-        </div>
-        
-    </nav>
+        <a href="zeit.html"class="active">Arbeitszeit</a>
+        <a href="index.html" >Abrechnung</a>
+        <a href="zaehlen.html">Zählen</a>
+    
 
-
-
-    <br>
-    <h1>Arbeitszeit</h1>
+</nav> 
     
 
     <table id="tabelleZeit">
@@ -127,10 +120,10 @@
     </div>
 
     <div class="button-feld2">        
-        <button type="reset" id="zuruecksetzenZeit">Zurücksetzen</button>       
+        <button type="reset" class="button" id="zuruecksetzenZeit">Zurücksetzen</button>       
     </div>
 
 
-    <script src="javascript.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
