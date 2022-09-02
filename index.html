@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +8,33 @@
     <title>Abrechnung</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="manifest" href="manifest.json">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">    
-    <link rel = ”apple-touch-icon” href = ”apple-icon-precomposed.png” type="image/png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel=”apple-touch-icon” href=”apple-icon-precomposed.png” type="image/png">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="icon" href="apple-icon-60x60.png" type="image/png">        
+    <link rel="icon" href="apple-icon-60x60.png" type="image/png">
 </head>
 
 
 <body>
 
     <!-- Logo -->
-    <header><img src="img/branding.png" alt="Das Logo"></header>
+    <header>
+        <div><img src="img/branding.png" alt="Das Logo"></div>
+    </header>
 
     <!-- Navigation -->
     <nav>
-        <button><a href="zeit.html">Arbeitszeit</a></button>
-        <button><a href="index.html" class="active">Abrechnung</a></button>
-        <button><a href="zaehlen.html">Zählen</a></button>        
+
+        <a href="zeit.html">Arbeitszeit</a>
+        <a href="index.html" class="active">Abrechnung</a>
+        <a href="zaehlen.html">Zählen</a>
+
+
+
     </nav>
-    
+
     <table>
         <tr>
             <th>Artikel</th>
@@ -37,64 +44,69 @@
         </tr>
         <tr>
             <td class="feld1 artikel">Holzspalter</td>
-            <td class="feld2"><input class="input" id="zeit" type="number" ><span class="einheiten_menge">Std</span></td>
+            <td class="feld2"><input class="input" id="zeit" type="number"><span class="einheiten_menge">Std</span></td>
             <td class="feld3"><input class="input" type="number" id="p_stunde"><span> €</span></td>
             <td class="feld4"><span id="g_stunde" type="number">0.00</span> <span> €</span></td>
         </tr>
         <tr>
             <td class="feld1 artikel">Anfahrt</td>
-            <td class="feld2"><input class="input" type="number" id="kilometer" ><span class="einheiten_menge">km</span></td>
+            <td class="feld2"><input class="input" type="number" id="kilometer"><span class="einheiten_menge">km</span>
+            </td>
             <td class="feld3"><input class="input" type="number" step="0.05" id="p_kilo"><span> €</span></td>
             <td class="feld4"><span id="g_kilo" type="number">0.00</span><span> €</span></td>
         </tr>
         <tr>
             <td class="feld1 artikel">Anfahrt</td>
-            <td class="feld2"><input class="input" type="number" id="pauschal" ><span class="einheiten_menge">pau.</span></td>
-            <td class="feld3"><input  class="input" type="number" id ="p_kilo_pauschal" ><span> €</span></td>
+            <td class="feld2"><input class="input" type="number" id="pauschal"><span class="einheiten_menge">pau.</span>
+            </td>
+            <td class="feld3"><input class="input" type="number" id="p_kilo_pauschal"><span> €</span></td>
             <td class="feld4"><span id="g_kilo_pauschal">0.00</span><span> €</span></td>
         </tr>
-        
+
         <tr>
             <td class="feld1 artikel">Eurovignette</td>
-            <td class="feld2"><input class="input" type="number" id="euro" ><span class="einheiten_menge">Tage</span></td>
-            <td class="feld3"><input class="input" type ="number" id="p_euro"><span> €</span></td>
+            <td class="feld2"><input class="input" type="number" id="euro"><span class="einheiten_menge">Tage</span>
+            </td>
+            <td class="feld3"><input class="input" type="number" id="p_euro"><span> €</span></td>
             <td class="feld4"><span id="g_euro">0.00</span><span> €</span></td>
         </tr>
         <tr>
             <td class="feld1 artikel">Sonstiges</td>
-            <td class="feld2"><input class="input" type="number" id="sonstiges" ><span class="einheiten_menge">Stck</span></td>
-            <td class="feld3"><input class="input" id="p_sonstiges" type="number"><span>  €</span></td>
+            <td class="feld2"><input class="input" type="number" id="sonstiges"><span
+                    class="einheiten_menge">Stck</span></td>
+            <td class="feld3"><input class="input" id="p_sonstiges" type="number"><span> €</span></td>
             <td class="feld4"><span id="g_sonstiges">0.00</span><span> €</span></td>
         </tr>
         <tr>
             <td></td>
             <td></td>
             <td class="feld5" id="textEu">Netto</td>
-            <td class="feld4"><span id ="g_netto">0.00</span><span> €</span></td>
-            
+            <td class="feld4"><span id="g_netto">0.00</span><span> €</span></td>
+
         </tr>
         <tr class="displayNone">
             <td></td>
             <td></td>
-            <td class="feld3" ><input class="input" type="number" id="mwstsatz"> %</td>
+            <td class="feld3"><input class="input" type="number" id="mwstsatz"> %</td>
             <td class="feld4"><span id="g_mwst">0.00</span><span> €</span></td>
-            
+
         </tr>
         <tr class="displayNone">
             <td></td>
             <td></td>
-            <td class="feld3 brutto" >Brutto</td>
-            <td class="feld4 brutto"><span id ="gesamt">0.00</span><span> €</span></td>
-            
+            <td class="feld3 brutto">Brutto</td>
+            <td class="feld4 brutto"><span id="gesamt">0.00</span><span> €</span></td>
+
         </tr>
     </table>
     <div class="button-feld">
-        <input type="checkbox" id="eu-ausland" name="ausland" >EU-Ausland
-        <button type="reset" id="zuruecksetzen">Zurücksetzen</button>
-        <button type="submit" id="uebernahmeStd">Stunden übernehmen</button>
+        <input type="checkbox" id="eu-ausland" name="ausland">EU-Ausland
+        <button type="reset" id="zuruecksetzen" class="button">Zurücksetzen</button>
+        <button type="submit" id="uebernahmeStd" class="button">Stunden übernehmen</button>
     </div>
-    
+
 
     <script type="text/javascript" src="javascript.js"></script>
 </body>
+
 </html>
