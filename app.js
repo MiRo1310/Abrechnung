@@ -2,35 +2,36 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("serviceworker.js", { scope: "/" })
+        navigator.serviceWorker.register("serviceworker.js", { scope: "/ab/" })
             .then(() => { console.log("Service Worker registriert") })
             .catch((error) => { console.log("Service Worker Registrierung fehlgeschlagen " + error) })
     } else {
         console.log("Service Worker nicht unterstützt");
     }
+    
 })
 // ANCHOR Values
 let valuesOb = {
     holzspalter: {
-        menge_holzspalter: 0,
+        menge_holzspalter: null,
         stundenlohn: 150,
         stundenlohnRabatt: 140,
     },
     anfahrtKm: {
-        menge_kilometer: 0,
+        menge_kilometer: null,
         p_kilometer: 0.95,
     },
     anfahrtPauschal: {
-        menge: 0,
+        menge: null,
         kilometer_pauschal: 35,
     },
     eurovignette: {
-        tage: 0,
+        tage: null,
         eurovignette: 12,
     },
     sonstiges: {
-        menge: 0,
-        sonstiges: 0,
+        menge: null,
+        sonstiges: null,
     },
     mwstsatz: 19,
     gesamtBetrag: 0,
@@ -323,7 +324,7 @@ const euAusland = function () {
         for (let i = 0; i < document.getElementsByClassName("displayNone").length; i++) {
             document.getElementsByClassName("displayNone")[i].style.visibility = "hidden"
         }
-        
+
     } else {
         values.ausland = false;
         document.getElementById("textEu").innerHTML = "Netto";

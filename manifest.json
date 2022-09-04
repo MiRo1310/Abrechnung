@@ -1,12 +1,13 @@
 {
-    "name": "Abrechnug",
-    "short_name": "Abrechnung",
-    "description": "Abrechnungs App",
-    "start_url": "/",
-    "display": "fullscreen",  
-    "theme_color": "#fe7e10",
-   "background_color": "#fe7e10", 
-     
+  "theme_color" : "#fe7e10",
+  "background_color" : "#fe7e10",
+  "display" : "standalone",   
+  "scope": "/",
+  "id": "https://www.r-roling.de/ab/index.html",
+  "start_url" : "https://www.r-roling.de/ab/",
+  "name" : "Abrechnug",
+  "short_name" : "Abrechnung",
+  "description" : "Erster Versuch",     
      
      "icons": [
        {

@@ -1,10 +1,16 @@
 /* Variablen */
 :root {
     --orange: #fe7e10;
-    --grau: #808080;
+    --grau: #aaa;
     --hellgrau: #ccc;
     --white: #fff;
-    --schwarz: #000;
+    --schwarz: #000;    
+}
+
+/* Allgemein */
+*{
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 body {
@@ -22,12 +28,7 @@ body {
 
 header {
     width: 100%;
-    background-color: var(--white);
-    /* margin-left: 5%;
-    
-    position: relative;
-    text-align: center;
-    display: inline-block;     */
+    background-color: var(--white);    
 }
 
 header>div {
@@ -46,6 +47,8 @@ img {
     margin-bottom: 10px;
 }
 
+
+
 /* Navigation */
 
 
@@ -53,7 +56,6 @@ nav {
     width: 100%;
     margin-top: 10px;
     text-align: center;
-
 }
 
 nav>a {
@@ -62,7 +64,7 @@ nav>a {
     height: 25px;
     margin-left: 2px;
     margin-right: 2px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     padding-top: 7px;
     display: inline-block;
     background-color: var(--hellgrau);
@@ -84,7 +86,7 @@ nav>a:hover {
 }
 
 [class*="feld"] {
-    background-color: #EEE;
+    background-color: var(--hellgrau);
 }
 
 
@@ -102,7 +104,7 @@ nav>a:hover {
 }
 
 th {
-    background-color: #aaa;
+    background-color: var(--grau);
     font-size: 1rem;
 
 
@@ -139,6 +141,7 @@ input {
 .brutto {
     font-size: 1.0rem;
     font-weight: bolder;
+    
 }
 
 .button-feld {
@@ -148,21 +151,21 @@ input {
     bottom: 10px;
     left: 10px;
     right: 10px;
-    height: 170px;
-    background-color: #ccc;
-    border: 5px solid #aaa;
+    height: 130px;
+    background-color: var(--hellgrau);
+    border: 5px solid var(--grau);
 
 }
 
 .button-feld2 {
     min-width: 335px;
     position: absolute;
-    background-color: #ccc;
+    background-color: var(--hellgrau);
     left: 10px;
     right: 10px;
-    height: 70px;
+    height: 50px;
     margin-top: 100px;
-    border: 5px solid #aaa;
+    border: 5px solid var(--grau);
     bottom: 10px;
 
 }
@@ -172,18 +175,22 @@ input {
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 2.5%;
-    height: 50px;
+    height: 30px;
     width: 95%;
-    background-color: #aaa;
+    background-color: var(--grau);
     font-size: 1.2rem;
     font-weight: bold;
+    cursor: pointer;
+    color: var(--schwarz);
+    
+    
 }
 
 #eu-ausland {
     margin-top: 10px;
-    margin-left: 10px;
-    width: 20px;
-    height: 25px;
+    margin-left: 2.5%;
+    width: 30px;
+    height: 30px;
 }
 
 .button-feld>span {
@@ -210,7 +217,7 @@ input {
 }
 
 #tabelleZeit {
-    background-color: #ccc;
+    background-color: var(--hellgrau);
     position: relative;
 }
 
@@ -229,7 +236,7 @@ input {
 
 #ergebnis {
     position: absolute;    
-    background-color: #ccc;
+    background-color: var(--grau);
     left: 3px;  
     right: 3px;  
     margin-top: 10px;    
@@ -252,7 +259,7 @@ input {
 #dif {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    background-color: #aaa;
+    background-color: var(--hellgrau);
 }
 
 /* Zeiten */
@@ -277,7 +284,7 @@ td.first {
 }
 
 #tabelleZeit td.field {
-    background-color: #eee;
+    background-color: var(--hellgrau);
 }
 
 
