@@ -1,14 +1,47 @@
+// Vatriablen 
 
+let storgekey = "Abrechnung Roling"
+let values;
+
+//ANCHOR DOM Contend Loaded
 
 document.addEventListener("DOMContentLoaded", () => {
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("serviceworker.js", { scope: "/ab/" })
+        navigator.serviceWorker.register("serviceworker.js", { scope: "/" })
             .then(() => { console.log("Service Worker registriert") })
             .catch((error) => { console.log("Service Worker Registrierung fehlgeschlagen " + error) })
     } else {
         console.log("Service Worker nicht unterstützt");
     }
-    
+
+    // console.log(this.localStorage.getItem(storgekey || valuesOb))
+    // if (this.localStorage.getItem(storgekey) && localStorage.getItem(storgekey) != '""') {
+    //     console.log("Loading")
+
+    values = JSON.parse(localStorage.getItem(storgekey)) || valuesOb;
+    save();
+    if (document.URL.includes("index.html")) {
+        if (values.ausland) {
+            let eu = this.document.getElementById("eu-ausland")
+            eu.setAttribute("checked", "checked")
+            euAusland()
+
+        }
+        berechnung();
+        if (values) {
+            refreshDisplay();
+        }
+    } else if (document.URL.includes("zaehlen.html")) {
+        refreshDisplayZaehlen();
+    } else if (document.URL.includes("zeit.html")) {
+        refreshDisplayZeit();
+    }
+    // } else {
+    //     console.log("First Value")
+    //     values = valuesOb
+    //     save();
+    // }    
+
 })
 // ANCHOR Values
 let valuesOb = {
@@ -54,40 +87,40 @@ let valuesOb = {
     zeiten: {
         gesamtStunden: 0,
         tag1: {
-            start: "00:00",
-            ende: "00:00",
-            pause1: 0,
-            pause2: 0,
-            pause3: 0,
-            pause4: 0
+            start: null,
+            ende: null,
+            pause1: null,
+            pause2: null,
+            pause3: null,
+            pause4: null
         },
         tag2: {
-            start: "00:00",
-            ende: "00:00",
-            pause1: 0,
-            pause2: 0,
-            pause3: 0,
-            pause4: 0
+            start: null,
+            ende: null,
+            pause1: null,
+            pause2: null,
+            pause3: null,
+            pause4: null
         },
         tag3: {
-            start: "00:00",
-            ende: "00:00",
-            pause1: 0,
-            pause2: 0,
-            pause3: 0,
-            pause4: 0
+            start: null,
+            ende: null,
+            pause1: null,
+            pause2: null,
+            pause3: null,
+            pause4: null
         },
         tag4: {
-            start: "00:00",
-            ende: "00:00",
-            pause1: 0,
-            pause2: 0,
-            pause3: 0,
-            pause4: 0
+            start: null,
+            ende: null,
+            pause1: null,
+            pause2: null,
+            pause3: null,
+            pause4: null
         },
         tag5: {
-            start: "00:00",
-            ende: "00:00",
+            start: null,
+            ende: null,
             pause1: 0,
             pause2: 0,
             pause3: 0,
@@ -97,8 +130,7 @@ let valuesOb = {
 }
 
 
-let storgekey = "Abrechnung Roling"
-let values;
+
 
 // ANCHOR Reset Object
 // Local Storage zurück setzen
@@ -133,33 +165,6 @@ for (const element of objectsOfChange) {
 
 // ANCHOR Load
 addEventListener("load", function () {
-    console.log(this.localStorage.getItem(storgekey))
-    if (this.localStorage.getItem(storgekey) && localStorage.getItem(storgekey) != '""') {
-        console.log("Loading")
-
-        values = JSON.parse(localStorage.getItem(storgekey));
-
-        if (document.URL.includes("index.html")) {
-            if (values.ausland) {
-                let eu = this.document.getElementById("eu-ausland")
-                eu.setAttribute("checked", "checked")
-                euAusland()
-
-            }
-            berechnung();
-            if (values) {
-                refreshDisplay();
-            }
-        } else if (document.URL.includes("zaehlen.html")) {
-            refreshDisplayZaehlen();
-        } else if (document.URL.includes("zeit.html")) {
-            refreshDisplayZeit();
-        }
-    } else {
-        console.log("First Value")
-        values = valuesOb
-        save();
-    }
 
 })
 
@@ -280,14 +285,18 @@ function berechnung() {
 const zuruecksetzen = document.getElementById("zuruecksetzen")
 if (zuruecksetzen) {
     zuruecksetzen.addEventListener("click", function () {
-        values.holzspalter.menge_holzspalter = null;
-        values.anfahrtKm.menge_kilometer = null;
-        values.anfahrtPauschal.menge = null;
-        values.eurovignette.tage = null;
-        values.sonstiges.menge = null;
-        // save();
-        refreshDisplay();
-        berechnung();
+
+        if (confirm("Soll wirklich alles gelöscht werden?")) {
+            values.holzspalter.menge_holzspalter = null;
+            values.anfahrtKm.menge_kilometer = null;
+            values.anfahrtPauschal.menge = null;
+            values.eurovignette.tage = null;
+            values.sonstiges.menge = null;
+            // save();
+            refreshDisplay();
+            berechnung();
+        }
+
     })
 }
 
@@ -295,14 +304,16 @@ if (zuruecksetzen) {
 const zuruecksetzenZaehlen = document.getElementById("zuruecksetzen2")
 if (zuruecksetzenZaehlen) {
     zuruecksetzenZaehlen.addEventListener("click", function () {
-        values.zaehlen.val.fuenf = null;
-        values.zaehlen.val.zehn = null;
-        values.zaehlen.val.zwanzig = null;
-        values.zaehlen.val.fuenfzig = null;
-        values.zaehlen.val.hundert = null;
-        values.zaehlen.val.zweihundert = null;
-        values.zaehlen.val.fuenfhundert = null;
-        refreshDisplayZaehlen();
+        if (confirm("Soll wirklich alles gelöscht werden?")) {
+            values.zaehlen.val.fuenf = null;
+            values.zaehlen.val.zehn = null;
+            values.zaehlen.val.zwanzig = null;
+            values.zaehlen.val.fuenfzig = null;
+            values.zaehlen.val.hundert = null;
+            values.zaehlen.val.zweihundert = null;
+            values.zaehlen.val.fuenfhundert = null;
+            refreshDisplayZaehlen();
+        }
     })
 }
 
@@ -436,10 +447,12 @@ const style = function (val) {
 const buttonUebernahmeZeit = document.getElementById("uebernahmeStd")
 if (buttonUebernahmeZeit) {
     buttonUebernahmeZeit.addEventListener("click", function () {
-        zeit.value = values.zeiten.gesamtStunden
-        values.holzspalter.menge_holzspalter = values.zeiten.gesamtStunden
-        save()
-        berechnung()
+        if (confirm("Soll die Zeit übernommen weren?")) {
+            zeit.value = values.zeiten.gesamtStunden
+            values.holzspalter.menge_holzspalter = values.zeiten.gesamtStunden
+            save()
+            berechnung()
+        }
     })
 }
 
@@ -597,21 +610,23 @@ if (zeitZurueck) {
 
     zeitZurueck.addEventListener("click", function () {
 
+        if (confirm("Soll wirklich alles gelöscht werden?")) {
+            for (let i = 1; i <= 5; i++) {
 
-        for (let i = 1; i <= 5; i++) {
-
-            // Arbeitsbeginn
-            values.zeiten["tag" + i].start = null;
-            // Arbeitsende
-            values.zeiten["tag" + i].ende = null;
-            // Pausen
-            values.zeiten["tag" + i].pause1 = null;
-            values.zeiten["tag" + i].pause2 = null;
-            values.zeiten["tag" + i].pause3 = null;
+                // Arbeitsbeginn
+                values.zeiten["tag" + i].start = null;
+                // Arbeitsende
+                values.zeiten["tag" + i].ende = null;
+                // Pausen
+                values.zeiten["tag" + i].pause1 = null;
+                values.zeiten["tag" + i].pause2 = null;
+                values.zeiten["tag" + i].pause3 = null;
+            }
+            save()
+            mathTime()
+            refreshDisplayZeit()
         }
-        save()
-        mathTime()
-        refreshDisplayZeit()
+
 
     })
 }
