@@ -1,19 +1,5 @@
 // Variablen 
 let values;
-
-let ergFünf;
-let ergZehn;
-let ergZwanzig;
-let ergFünfzig;
-let ergHundert;
-let ergZweiHundert;
-let ergFünfHundert;
-
-let gesamtZaehlen;
-
-
-//ANCHOR DOM Contend Loaded
-document.addEventListener("DOMContentLoaded", () => {
 let valuesOb = {
     lastSite: "index",
     holzspalter: {
@@ -99,6 +85,20 @@ let valuesOb = {
         },
     }
 }
+let ergFünf;
+let ergZehn;
+let ergZwanzig;
+let ergFünfzig;
+let ergHundert;
+let ergZweiHundert;
+let ergFünfHundert;
+
+let gesamtZaehlen;
+
+
+//ANCHOR DOM Contend Loaded
+document.addEventListener("DOMContentLoaded", () => {
+
     // ANCHOR Serviceworker registrieren
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("serviceworker.js", { scope: "/" })
@@ -313,7 +313,7 @@ if (zuruecksetzenZaehlen) {
 
 // ANCHOR Refresh Display Funktion
 function refreshDisplay() {
-
+    console.log("Wert " + values.holzspalter.menge_holzspalter)
     // Holzspalter
     zeit.value = values.holzspalter.menge_holzspalter;
     p_stunde.value = values.holzspalter.stundenlohn;
