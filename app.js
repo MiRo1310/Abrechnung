@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function start(){
     values = await JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
-    console.log("Value Async: " + value)
+    console.log("Value Async: " + values)
     if (document.URL.includes("index")) {
         if (values.ausland) {
             let eu = this.document.getElementById("eu-ausland")
