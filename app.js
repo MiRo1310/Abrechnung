@@ -111,7 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     
     // LocalStorage auslesen und wenn nicht verfügbar soll das Grundobject eingefügt werden (valuesOb)
-    values = JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
+    values = loadValues()
+    
     
     if (document.URL.includes("index")) {
         if (values.ausland) {
@@ -138,6 +139,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
+async function loadValues(){
+    let value = await JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
+    console.log("Value Async: " + value)
+    return value;
+}
 
 // ANCHOR Reset Object Eventlistner
 // Local Storage zurück setzen
