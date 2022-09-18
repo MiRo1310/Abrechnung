@@ -106,20 +106,15 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch((error) => { console.log("Service Worker Registrierung fehlgeschlagen " + error) })
     } else {
         console.log("Service Worker nicht unterstützt");
-    }
-    
-    
-    
-    // LocalStorage auslesen und wenn nicht verfügbar soll das Grundobject eingefügt werden (valuesOb)
-   start()
-    
-    
-    
+    }   
+   
+   load()    
     
 
 })
 
-async function start(){
+async function load(){
+     // LocalStorage auslesen und wenn nicht verfügbar soll das Grundobject eingefügt werden (valuesOb)
     values = await JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
     console.log("Value Async: " + values)
     if (document.URL.includes("index")) {
@@ -130,7 +125,9 @@ async function start(){
 
         }
         berechnung();
+        console.log("Values: "  + values)
         if (values) {
+            console.log("Refresh Display")
             refreshDisplay();
         }
         values.lastSite ="index"
@@ -319,7 +316,7 @@ if (zuruecksetzenZaehlen) {
 
 // ANCHOR Refresh Display Funktion
 function refreshDisplay() {
-    console.log("Wert " + values.holzspalter.menge_holzspalter)
+    console.log("Wert " + values.holzspalter.stundenlohn)
     // Holzspalter
     zeit.value = values.holzspalter.menge_holzspalter;
     p_stunde.value = values.holzspalter.stundenlohn;
