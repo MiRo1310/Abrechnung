@@ -111,9 +111,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
     
     // LocalStorage auslesen und wenn nicht verfügbar soll das Grundobject eingefügt werden (valuesOb)
-    values = loadValues()
+   start()
     
     
+    
+    
+
+})
+
+async function start(){
+    values = await JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
+    console.log("Value Async: " + value)
     if (document.URL.includes("index")) {
         if (values.ausland) {
             let eu = this.document.getElementById("eu-ausland")
@@ -135,14 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     console.log(values)
     save();
-    
-
-})
-
-async function loadValues(){
-    let value = await JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
-    console.log("Value Async: " + value)
-    return value;
 }
 
 // ANCHOR Reset Object Eventlistner
