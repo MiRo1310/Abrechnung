@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><!-- kein heranzoomen-->
   <title>Abrechnung</title>
-  <meta name="theme-color" content="#fe7e10">
-  <meta name="description" content="App für die Abrechung">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="App für die Abrechnung">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -81,7 +81,7 @@
     <a href="index.html" class="active">Abrechnung</a>
     <a href="zaehlen.html">Zählen</a>
   </nav>
-  <table>
+  <table id="Abrechnung">
     <tbody>
       <tr>
         <th>Artikel</th>
@@ -144,13 +144,13 @@
     </tbody>
   </table>
   <footer>
-    <div>
+    
       <div class="button-feld">
         <input type="checkbox" id="eu-ausland" name="ausland"><span class="text">EU-Ausland</span>
         <button type="reset" id="zuruecksetzen" class="button">Zurücksetzen</button>
         <button type="submit" id="uebernahmeStd" class="button">Stunden übernehmen</button>
       </div>
-    </div>
+    
   </footer>
   <script type="text/javascript" src="app.js"></script>
 </body>

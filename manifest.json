@@ -1,10 +1,9 @@
 {
-  "theme_color" : "#fe7e10",
-  "background_color" : "#000",
-  "display" : "fullscreen",   
-  "scope": "/",
-  "id": "https://www.r-roling.de/ab/index.html",
-  "start_url" : "https://www.r-roling.de/ab/",
+  "theme_color" : "#000000",
+  "background_color" : "#000000",
+  "display" : "fullscreen",     
+  
+  "start_url" : "/",
   "name" : "Abrechnug",
   "short_name" : "Abrechnung",
   "description" : "Erster Versuch",     

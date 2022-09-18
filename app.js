@@ -1,50 +1,7 @@
-// Vatriablen 
-
-let storgekey = "Abrechnung Roling"
+// Variablen 
 let values;
-
-//ANCHOR DOM Contend Loaded
-
-document.addEventListener("DOMContentLoaded", () => {
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("serviceworker.js", { scope: "/" })
-            .then(() => { console.log("Service Worker registriert") })
-            .catch((error) => { console.log("Service Worker Registrierung fehlgeschlagen " + error) })
-    } else {
-        console.log("Service Worker nicht unterstützt");
-    }
-
-    // console.log(this.localStorage.getItem(storgekey || valuesOb))
-    // if (this.localStorage.getItem(storgekey) && localStorage.getItem(storgekey) != '""') {
-    //     console.log("Loading")
-
-    values = JSON.parse(localStorage.getItem(storgekey)) || valuesOb;
-    save();
-    if (document.URL.includes("index.html")) {
-        if (values.ausland) {
-            let eu = this.document.getElementById("eu-ausland")
-            eu.setAttribute("checked", "checked")
-            euAusland()
-
-        }
-        berechnung();
-        if (values) {
-            refreshDisplay();
-        }
-    } else if (document.URL.includes("zaehlen.html")) {
-        refreshDisplayZaehlen();
-    } else if (document.URL.includes("zeit.html")) {
-        refreshDisplayZeit();
-    }
-    // } else {
-    //     console.log("First Value")
-    //     values = valuesOb
-    //     save();
-    // }    
-
-})
-// ANCHOR Values
 let valuesOb = {
+    lastSite: "index",
     holzspalter: {
         menge_holzspalter: null,
         stundenlohn: 150,
@@ -71,13 +28,13 @@ let valuesOb = {
     ausland: false,
     zaehlen: {
         val: {
-            fuenf: 0,
-            zehn: 0,
-            zwanzig: 0,
-            fuenfzig: 0,
-            hundert: 0,
-            zweihundert: 0,
-            fuenfhundert: 0,
+            fuenf: null,
+            zehn: null,
+            zwanzig: null,
+            fuenfzig: null,
+            hundert: null,
+            zweihundert: null,
+            fuenfhundert: null,
         },
         soll: 0,
         ist: 0,
@@ -121,18 +78,68 @@ let valuesOb = {
         tag5: {
             start: null,
             ende: null,
-            pause1: 0,
-            pause2: 0,
-            pause3: 0,
-            pause4: 0
+            pause1: null,
+            pause2: null,
+            pause3: null,
+            pause4: null
         },
     }
 }
+let ergFünf;
+let ergZehn;
+let ergZwanzig;
+let ergFünfzig;
+let ergHundert;
+let ergZweiHundert;
+let ergFünfHundert;
+
+let gesamtZaehlen;
 
 
+//ANCHOR DOM Contend Loaded
+document.addEventListener("DOMContentLoaded", () => {
+
+    // ANCHOR Serviceworker registrieren
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("serviceworker.js", { scope: "/" })
+            .then(() => { console.log("Service Worker registriert") })
+            .catch((error) => { console.log("Service Worker Registrierung fehlgeschlagen " + error) })
+    } else {
+        console.log("Service Worker nicht unterstützt");
+    }
+    
+    
+    
+    // LocalStorage auslesen und wenn nicht verfügbar soll das Grundobject eingefügt werden (valuesOb)
+    values = JSON.parse(localStorage.getItem("Abrechnung")) || valuesOb;
+    
+    if (document.URL.includes("index")) {
+        if (values.ausland) {
+            let eu = this.document.getElementById("eu-ausland")
+            eu.setAttribute("checked", "checked")
+            euAusland()
+
+        }
+        berechnung();
+        if (values) {
+            refreshDisplay();
+        }
+        values.lastSite ="index"
+    } else if (document.URL.includes("zaehlen")) {
+        values.lastSite ="zaehlen"
+        refreshDisplayZaehlen();
+    } else if (document.URL.includes("zeit")) {
+        refreshDisplayZeit();
+        values.lastSite ="zeit"
+    }
+    console.log(values)
+    save();
+    
+
+})
 
 
-// ANCHOR Reset Object
+// ANCHOR Reset Object Eventlistner
 // Local Storage zurück setzen
 //  if (true){localStorage.setItem(storgekey, JSON.stringify(""))}
 
@@ -163,43 +170,148 @@ for (const element of objectsOfChange) {
     })
 }
 
-// ANCHOR Load
-addEventListener("load", function () {
-
-})
 
 
-// ANCHOR Nav Button
-// Nav Button unsichbar machen, wenn auf der Seite geklickt wird
+// ANCHOR Button Zurücksetzen Abrechung Eventlistener
+const zuruecksetzen = document.getElementById("zuruecksetzen")
+if (zuruecksetzen) {
+    zuruecksetzen.addEventListener("click", function () {
 
-const elemets = document.querySelectorAll("*:not(#mobile-nav-button)")
-console.log(elemets)
-for (let element of elemets) {
-    element.addEventListener("click", function () {
-        console.log("Test")
+        if (confirm("Soll wirklich alles gelöscht werden?")) {
+            values.holzspalter.menge_holzspalter = null;
+            values.anfahrtKm.menge_kilometer = null;
+            values.anfahrtPauschal.menge = null;
+            values.eurovignette.tage = null;
+            values.sonstiges.menge = null;
+            // save();
+            refreshDisplay();
+            berechnung();
+        }
 
     })
-
 }
 
 
-// // Nav Button steuern
 
-// const mobileNavButton = document.getElementById("mobile-nav-button")
-// mobileNavButton.addEventListener("click", function (){
-//     document.getElementById("mobile-nav-content").classList.toggle("display")
+// ANCHOR EU Ausland Eventlistener
+const euAuslandEvent = document.getElementById("eu-ausland")
+if (euAuslandEvent) {
+    euAuslandEvent.addEventListener("click", function () {
+        euAusland()
 
-// })
-
-
-
-
-// ANCHOR Save
-function save() {
-    localStorage.setItem(storgekey, JSON.stringify(values))
+    })
 }
 
-// ANCHOR Refresh Display
+
+
+// ANCHOR Auf Änderungen reagieren Eventlistener
+
+const valuechange = document.getElementsByClassName("compute");
+for (const element of valuechange) {
+    element.addEventListener("change", function () {
+        values.zaehlen.val.fuenf = fuenf.value
+        values.zaehlen.val.zehn = zehn.value
+        values.zaehlen.val.zwanzig = zwanzig.value
+        values.zaehlen.val.fuenfzig = fuenfzig.value
+        values.zaehlen.val.hundert = hundert.value
+        values.zaehlen.val.zweihundert = zweihundert.value
+        values.zaehlen.val.fuenfhundert = fuenfhundert.value
+        console.log(values)
+        wertErmitteln();
+    })
+}
+
+// ANCHOR Übernahme Zeit Eventlistener
+const buttonUebernahmeZeit = document.getElementById("uebernahmeStd")
+if (buttonUebernahmeZeit) {
+    buttonUebernahmeZeit.addEventListener("click", function () {
+        if (confirm("Soll die Zeit übernommen weren?")) {
+            zeit.value = values.zeiten.gesamtStunden
+            values.holzspalter.menge_holzspalter = values.zeiten.gesamtStunden
+            save()
+            berechnung()
+        }
+    })
+}
+
+
+
+
+// ANCHOR Change Zeiten Eventlistener 
+const fields = document.querySelectorAll(".field input")
+for (const input of fields) {
+    input.addEventListener("change", function () {
+
+
+        const zeiten = values.zeiten;
+        for (let i = 1; i <= 5; i++) {
+            // Zeit Beginn          
+            const tB = document.getElementById("tB" + i)
+            zeiten["tag" + i].start = tB.value;
+            // Zeit Ende
+            const tE = document.getElementById("tE" + i)
+            zeiten["tag" + i].ende = tE.value;
+
+            const tag = document.getElementsByClassName("t" + i + "P")
+            values.zeiten["tag" + i].pause1 = tag[0].value
+            values.zeiten["tag" + i].pause2 = tag[1].value
+            values.zeiten["tag" + i].pause3 = tag[2].value
+            // values.zeiten["tag"+i].pause4 = tag[3].value   
+
+        }
+
+        save()
+        mathTime()
+    })
+}
+
+
+
+// ANCHOR Button zurücksetzen Zeit Eventlistener
+const zeitZurueck = document.getElementById("zuruecksetzenZeit")
+if (zeitZurueck) {
+
+    zeitZurueck.addEventListener("click", function () {
+
+        if (confirm("Soll wirklich alles gelöscht werden?")) {
+            for (let i = 1; i <= 5; i++) {
+
+                // Arbeitsbeginn
+                values.zeiten["tag" + i].start = null;
+                // Arbeitsende
+                values.zeiten["tag" + i].ende = null;
+                // Pausen
+                values.zeiten["tag" + i].pause1 = null;
+                values.zeiten["tag" + i].pause2 = null;
+                values.zeiten["tag" + i].pause3 = null;
+            }
+            save()
+            mathTime()
+            refreshDisplayZeit()
+        }
+
+
+    })
+}
+
+// ANCHOR Button Zurücksetzen Zählen Eventlistener
+const zuruecksetzenZaehlen = document.getElementById("zuruecksetzen2")
+if (zuruecksetzenZaehlen) {
+    zuruecksetzenZaehlen.addEventListener("click", function () {
+        if (confirm("Soll wirklich alles gelöscht werden?")) {
+            values.zaehlen.val.fuenf = null;
+            values.zaehlen.val.zehn = null;
+            values.zaehlen.val.zwanzig = null;
+            values.zaehlen.val.fuenfzig = null;
+            values.zaehlen.val.hundert = null;
+            values.zaehlen.val.zweihundert = null;
+            values.zaehlen.val.fuenfhundert = null;
+            refreshDisplayZaehlen();
+        }
+    })
+}
+
+// ANCHOR Refresh Display Funktion
 function refreshDisplay() {
 
     // Holzspalter
@@ -222,7 +334,14 @@ function refreshDisplay() {
 
 }
 
-// ANCHOR Berechung
+// ANCHOR Save Funktion
+function save() {
+    localStorage.setItem("Abrechnung", JSON.stringify(values))
+}
+
+
+
+// ANCHOR Berechung Funktion
 function berechnung() {
 
     // Holzspalter
@@ -280,52 +399,6 @@ function berechnung() {
     }
     save();
 }
-
-// ANCHOR Button Zurücksetzen Abrechung
-const zuruecksetzen = document.getElementById("zuruecksetzen")
-if (zuruecksetzen) {
-    zuruecksetzen.addEventListener("click", function () {
-
-        if (confirm("Soll wirklich alles gelöscht werden?")) {
-            values.holzspalter.menge_holzspalter = null;
-            values.anfahrtKm.menge_kilometer = null;
-            values.anfahrtPauschal.menge = null;
-            values.eurovignette.tage = null;
-            values.sonstiges.menge = null;
-            // save();
-            refreshDisplay();
-            berechnung();
-        }
-
-    })
-}
-
-// ANCHOR Button Zurücksetzen Zählen
-const zuruecksetzenZaehlen = document.getElementById("zuruecksetzen2")
-if (zuruecksetzenZaehlen) {
-    zuruecksetzenZaehlen.addEventListener("click", function () {
-        if (confirm("Soll wirklich alles gelöscht werden?")) {
-            values.zaehlen.val.fuenf = null;
-            values.zaehlen.val.zehn = null;
-            values.zaehlen.val.zwanzig = null;
-            values.zaehlen.val.fuenfzig = null;
-            values.zaehlen.val.hundert = null;
-            values.zaehlen.val.zweihundert = null;
-            values.zaehlen.val.fuenfhundert = null;
-            refreshDisplayZaehlen();
-        }
-    })
-}
-
-// ANCHOR EU Ausland Event
-const euAuslandEvent = document.getElementById("eu-ausland")
-if (euAuslandEvent) {
-    euAuslandEvent.addEventListener("click", function () {
-        euAusland()
-
-    })
-}
-
 // ANCHOR EU Ausland Funktion
 const euAusland = function () {
     if (document.getElementById("eu-ausland").checked == true) {
@@ -348,39 +421,7 @@ const euAusland = function () {
     berechnung();
 
 }
-
-// ANCHOR Zählen
-// Zählen
-
-let ergFünf;
-let ergZehn;
-let ergZwanzig;
-let ergFünfzig;
-let ergHundert;
-let ergZweiHundert;
-let ergFünfHundert;
-
-let gesamtZaehlen;
-
-// ANCHOR Auf Änderungen reagieren
-
-const valuechange = document.getElementsByClassName("compute");
-for (const element of valuechange) {
-    element.addEventListener("change", function () {
-        values.zaehlen.val.fuenf = fuenf.value
-        values.zaehlen.val.zehn = zehn.value
-        values.zaehlen.val.zwanzig = zwanzig.value
-        values.zaehlen.val.fuenfzig = fuenfzig.value
-        values.zaehlen.val.hundert = hundert.value
-        values.zaehlen.val.zweihundert = zweihundert.value
-        values.zaehlen.val.fuenfhundert = fuenfhundert.value
-        console.log(values)
-        wertErmitteln();
-    })
-}
-
-
-// ANCHOR Refresh Display Zählen
+// ANCHOR Refresh Display Zählen Funktion
 
 function refreshDisplayZaehlen() {
 
@@ -408,7 +449,7 @@ function wertErmitteln() {
 }
 
 
-
+// ANCHOR Rechnen Einzelwerte Funktion
 function inputMult() {
     const val = values.zaehlen.val;
     ergFünf = val.fuenf * 5;
@@ -421,7 +462,7 @@ function inputMult() {
 
 }
 
-
+// ANCHOR Rechnen Gesamtwerte Funktion
 function gesamtErrechnen() {
     values.zaehlen.ist = ergFünf + ergZehn + ergZwanzig + ergFünfzig + ergHundert + ergZweiHundert + ergFünfHundert;
     gezaehlt.innerHTML = values.zaehlen.ist;
@@ -431,7 +472,7 @@ function gesamtErrechnen() {
 }
 
 // ANCHOR Farbe Differenz Anpassen
-const style = function (val) {
+function style(val) {
 
     const dif = document.getElementById("dif")
     if (val === 0) {
@@ -443,22 +484,7 @@ const style = function (val) {
 
 }
 
-// ANCHOR Übernahme Zeit 
-const buttonUebernahmeZeit = document.getElementById("uebernahmeStd")
-if (buttonUebernahmeZeit) {
-    buttonUebernahmeZeit.addEventListener("click", function () {
-        if (confirm("Soll die Zeit übernommen weren?")) {
-            zeit.value = values.zeiten.gesamtStunden
-            values.holzspalter.menge_holzspalter = values.zeiten.gesamtStunden
-            save()
-            berechnung()
-        }
-    })
-}
-
-// ANCHOR Zeiten
-
-// ANCHOR Refresh Display Zeit
+// ANCHOR Refresh Display Zeit Funktion
 const refreshDisplayZeit = function () {
     for (let i = 1; i <= 5; i++) {
 
@@ -474,84 +500,11 @@ const refreshDisplayZeit = function () {
         tP[1].value = values.zeiten["tag" + i].pause2
         tP[2].value = values.zeiten["tag" + i].pause3
     }
-    // // Arbeitsbeginn
-    // tB1.value = values.zeiten.tag1.start
-    // tB2.value = values.zeiten.tag2.start
-    // tB3.value = values.zeiten.tag3.start
-    // tB4.value = values.zeiten.tag4.start
-    // tB5.value = values.zeiten.tag5.start
-
-    // // Arbeitsende
-    // tE1.value = values.zeiten.tag1.ende
-    // tE2.value = values.zeiten.tag2.ende
-    // tE3.value = values.zeiten.tag3.ende
-    // tE4.value = values.zeiten.tag4.ende
-    // tE5.value = values.zeiten.tag5.ende
-
-    // // Pausen
-    // const tag1Pause = document.getElementsByClassName("t1P")
-    // tag1Pause[0].value = values.zeiten.tag1.pause1
-    // tag1Pause[1].value = values.zeiten.tag1.pause2
-    // tag1Pause[2].value = values.zeiten.tag1.pause3
-    // //tag1Pause[3].value = values.zeiten.tag1.pause4
-
-    // const tag2Pause = document.getElementsByClassName("t2P")
-    // tag2Pause[0].value = values.zeiten.tag2.pause1
-    // tag2Pause[1].value = values.zeiten.tag2.pause2
-    // tag2Pause[2].value = values.zeiten.tag2.pause3
-    // //tag2Pause[3].value = values.zeiten.tag2.pause4
-
-    // const tag3Pause = document.getElementsByClassName("t3P")
-    // tag3Pause[0].value = values.zeiten.tag3.pause1
-    // tag3Pause[1].value = values.zeiten.tag3.pause2
-    // tag3Pause[2].value = values.zeiten.tag3.pause3
-    // //tag3Pause[3].value = values.zeiten.tag3.pause4
-
-    // const tag4Pause = document.getElementsByClassName("t4P")
-    // tag4Pause[0].value = values.zeiten.tag4.pause1
-    // tag4Pause[1].value = values.zeiten.tag4.pause2
-    // tag4Pause[2].value = values.zeiten.tag4.pause3
-    // //tag4Pause[3].value = values.zeiten.tag4.pause4
-
-    // const tag5Pause = document.getElementsByClassName("t5P")
-    // tag5Pause[0].value = values.zeiten.tag5.pause1
-    // tag5Pause[1].value = values.zeiten.tag5.pause2
-    // tag5Pause[2].value = values.zeiten.tag5.pause3
-    // //tag5Pause[3].value = values.zeiten.tag5.pause4
-
     mathTime()
 
 }
 
-// ANCHOR Event Change Zeiten
-const fields = document.querySelectorAll(".field input")
-for (const input of fields) {
-    input.addEventListener("change", function () {
-
-
-        const zeiten = values.zeiten;
-        for (let i = 1; i <= 5; i++) {
-            // Zeit Beginn          
-            const tB = document.getElementById("tB" + i)
-            zeiten["tag" + i].start = tB.value;
-            // Zeit Ende
-            const tE = document.getElementById("tE" + i)
-            zeiten["tag" + i].ende = tE.value;
-
-            const tag = document.getElementsByClassName("t" + i + "P")
-            values.zeiten["tag" + i].pause1 = tag[0].value
-            values.zeiten["tag" + i].pause2 = tag[1].value
-            values.zeiten["tag" + i].pause3 = tag[2].value
-            // values.zeiten["tag"+i].pause4 = tag[3].value   
-
-        }
-
-        save()
-        mathTime()
-    })
-}
-
-// ANCHOR Berechnen Zeit
+// ANCHOR Berechnen Zeit Funktion
 
 const mathTime = function () {
     let gesamtStunden = 0;
@@ -601,32 +554,4 @@ const mathTime = function () {
         save()
     }
 
-}
-
-// ANCHOR Button zurücksetzen Zeit
-
-const zeitZurueck = document.getElementById("zuruecksetzenZeit")
-if (zeitZurueck) {
-
-    zeitZurueck.addEventListener("click", function () {
-
-        if (confirm("Soll wirklich alles gelöscht werden?")) {
-            for (let i = 1; i <= 5; i++) {
-
-                // Arbeitsbeginn
-                values.zeiten["tag" + i].start = null;
-                // Arbeitsende
-                values.zeiten["tag" + i].ende = null;
-                // Pausen
-                values.zeiten["tag" + i].pause1 = null;
-                values.zeiten["tag" + i].pause2 = null;
-                values.zeiten["tag" + i].pause3 = null;
-            }
-            save()
-            mathTime()
-            refreshDisplayZeit()
-        }
-
-
-    })
 }
