@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function load(){
      // LocalStorage auslesen und wenn nicht verfügbar soll das Grundobject eingefügt werden (valuesOb)
-    values = await JSON.parse(localStorage.getItem("Abrechnung"))|| valueOb;
+    values = await JSON.parse(localStorage.getItem("Abrechnung"))|| valuesOb;
     console.log("Value Async: " + values)
     if (document.URL.includes("index")) {
         if (values.ausland) {
