@@ -108,9 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Service Worker nicht unterstützt");
     }   
    
-   load()    
+       
     
 
+})
+document.addEventListener("load", ()=>{
+    load()
 })
 
 async function load(){
