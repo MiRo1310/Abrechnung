@@ -109,11 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }   
    
        
-    
-
-})
-document.addEventListener("load", ()=>{
     load()
+
 })
 
 async function load(){
