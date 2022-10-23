@@ -102,6 +102,7 @@ async function deleteOldCaches() {
 self.addEventListener('activate', event => {
   event.waitUntil(
     deleteOldCaches().then(() => {
+      // Den Serviceworker für alle Seiten benutzen
       clients.claim();
     })
   );
