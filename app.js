@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
    
        
     load()
+    alert("Geladen")
 
 })
 
