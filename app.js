@@ -108,9 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Service Worker nicht unterstützt");
     }   
    
-       
-    load()
-    alert("Geladen")
+    setTimeout(load, 1000);   
+      
 
 })
 
