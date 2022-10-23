@@ -94,7 +94,7 @@ let ergZweiHundert;
 let ergFünfHundert;
 
 let gesamtZaehlen;
-let firstStart = true;
+
 
 
 //ANCHOR DOM Contend Loaded
@@ -109,12 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Service Worker nicht unterstützt");
     }   
    
-    load()
-    if (firstStart){
-        firstStart = false;
-        location.reload();
-
-    }
+    load() 
       
 
 })
